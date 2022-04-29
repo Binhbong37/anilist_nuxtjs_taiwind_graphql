@@ -1,5 +1,11 @@
 <template>
-  <div class="container mx-auto text-3xl font-bold">
+  <div class="px-[135px]">
+    <div class="mt-12 grid grid-cols-6">
+      <div v-for="i in 6" :key="i">
+        <label>Search</label>
+        <input type="text" class="border-2" />
+      </div>
+    </div>
     <div class="mb-8">
       <nuxt-link to="/users" class="hover:text-red-500">Users</nuxt-link>
       <nuxt-link to="/contact" class="hover:text-red-500">Contact</nuxt-link>
