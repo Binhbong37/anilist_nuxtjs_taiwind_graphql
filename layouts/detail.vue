@@ -4,8 +4,14 @@
       class="
         px-[135px]
         bg-[#2b2d42]
+        hover:bg-opacity-50
         text-white
         shadow
+        cursor-pointer
+        transition
+        delay-150
+        duration-300
+        ease-linear
         md:flex md:items-center md:justify-between
       "
     >
@@ -41,7 +47,6 @@
           z-[2]
           md:z-auto md:static
           absolute
-          bg-[#2b2d42]
           w-full
           left-0
           md:w-auto md:pl-0

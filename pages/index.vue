@@ -1,42 +1,84 @@
 <template>
-  <div class="px-[135px]">
-    <div class="mt-12 grid grid-cols-6">
-      <div v-for="i in 6" :key="i">
-        <label>Search</label>
-        <input type="text" class="border-2" />
+  <div class="px-[50px] md:px-20 lg:px-[135px]">
+    <!-- Population -->
+    <div class="pt-12">
+      <div class="flex justify-between">
+        <h1 class="hover:text-red-500 cursor-pointer">Population</h1>
+        <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
+      </div>
+      <div
+        class="
+          grid grid-cols-2
+          gap-4
+          sm:grid-cols-3 sm:gap-x-3
+          md:grid-cols-5 md:gap-x-5
+        "
+      >
+        <nuxt-link
+          to="/anime/2"
+          v-for="i in 5"
+          :key="i"
+          class="hover:text-red-500"
+        >
+          <img src="../assets/images/medium.png" alt="Image" class="rounded" />
+          <h1>Title of Movies</h1>
+        </nuxt-link>
       </div>
     </div>
-    <div class="mb-8">
-      <nuxt-link to="/users" class="hover:text-red-500">Users</nuxt-link>
-      <nuxt-link to="/contact" class="hover:text-red-500">Contact</nuxt-link>
-      <nuxt-link to="/products" class="hover:text-red-500">products</nuxt-link>
-      <nuxt-link :to="{ name: 'users-one' }" class="hover:text-red-500"
-        >Users One</nuxt-link
+    <!-- Next-Season -->
+    <div class="pt-12">
+      <div class="flex justify-between">
+        <h1 class="hover:text-red-500 cursor-pointer">Next Season</h1>
+        <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
+      </div>
+      <div
+        class="
+          grid grid-cols-2
+          gap-4
+          sm:grid-cols-3 sm:gap-x-3
+          md:grid-cols-5 md:gap-x-5
+        "
       >
+        <nuxt-link
+          to="/anime/1"
+          v-for="i in 5"
+          :key="i"
+          class="hover:text-red-500"
+        >
+          <img
+            src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx140960-Yl5M3AiLZAMq.png"
+            alt="Image"
+            class="rounded"
+          />
+          <h1>Title of Movies</h1>
+        </nuxt-link>
+      </div>
     </div>
-    <h1 class="mb-8">This is Index Page</h1>
-    <div>
-      <button @click="gotoUser" class="bg-red-300 rounded p-1 text-xl">
-        User
-      </button>
+
+    <!-- Top 100 -->
+    <div class="mt-12 pb-12">
+      <div class="flex justify-between">
+        <h1 class="hover:text-red-500">Top-100</h1>
+        <h1 class="hover:text-red-500">View All</h1>
+      </div>
+      <div class="">
+        <div
+          class="bg-white rounded overflow-hidden shadow-md min-h-[40px] mb-6"
+        >
+          <h1>Title of Movies</h1>
+        </div>
+        <div
+          class="bg-white rounded overflow-hidden shadow-md min-h-[40px] mb-6"
+        >
+          <h1>Title of Movies</h1>
+        </div>
+        <div
+          class="bg-white rounded overflow-hidden shadow-md min-h-[40px] mb-6"
+        >
+          <h1>Title of Movies</h1>
+        </div>
+      </div>
     </div>
-    <hr />
-    <h1 class="text-red-700">Users</h1>
-    <ul>
-      <li v-for="user in users" :key="user.id">
-        <!-- <nuxt-link :to="`users/${user.name}`">{{ user.name }}</nuxt-link> -->
-        <nuxt-link :to="{ name: 'users-id', params: { id: user.id } }">{{
-          user.name
-        }}</nuxt-link>
-      </li>
-    </ul>
-    <hr />
-    <h1 class="text-red-700">Products</h1>
-    <ul>
-      <li v-for="i in products" :key="i.id">
-        <nuxt-link :to="`/${i.item}`">{{ i.item }}</nuxt-link>
-      </li>
-    </ul>
   </div>
 </template>
 
