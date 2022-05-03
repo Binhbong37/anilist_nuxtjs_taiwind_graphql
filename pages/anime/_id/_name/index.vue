@@ -1,7 +1,5 @@
 <template>
-  <div class="container mx-auto">
-    <NuxtLogo />
-  </div>
+  <h1>NUXCHILD OF PAGE DETAILS</h1>
 </template>
 
 <script>

@@ -2,7 +2,7 @@
   <div>
     <nav
       class="
-        px-[135px]
+        px-[56px]
         bg-[#2b2d42]
         text-white
         shadow
@@ -76,7 +76,7 @@ export default {
       navbar: [
         { url: "/", lable: "Home" },
         { url: "/search/anime", lable: "Search" },
-        { url: "/users", lable: "List" },
+        { url: "/responsive", lable: "List" },
       ],
     };
   },
