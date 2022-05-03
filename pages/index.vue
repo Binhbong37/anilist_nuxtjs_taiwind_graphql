@@ -1,6 +1,6 @@
 <template>
   <div class="px-[50px] md:px-20 lg:px-[56px]">
-    <!-- Population -->
+    <!-- TRENDING  -->
     <div class="pt-12">
       <nuxt-link to="/anime/trending" class="flex justify-between">
         <h1 class="hover:text-red-500 cursor-pointer text-[#404e5c]">
@@ -8,61 +8,17 @@
         </h1>
         <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
       </nuxt-link>
-      <div
-        class="
-          grid grid-cols-2
-          gap-4
-          sm:grid-cols-3 sm:gap-x-3
-          md:grid-cols-5 md:gap-x-5
-        "
-      >
-        <nuxt-link
-          v-for="trend in MediaTrend"
-          :key="trend.id"
-          :to="`/anime/${trend.id}`"
-          class="hover:text-red-500 text-center"
-        >
-          <img
-            :src="trend.coverImage.large"
-            alt="Image"
-            class="rounded my-0 mx-auto w-full h-[251px]"
-          />
-          <h1 class="h-">{{ trend.title.english }}</h1>
-        </nuxt-link>
-      </div>
+      <PostList :MediaTrend="MediaTrend" />
     </div>
     <!-- Next-Season -->
     <div class="pt-12">
-      <div class="flex justify-between">
-        <nuxt-link
-          to="/anime/next-season"
-          class="hover:text-red-500 cursor-pointer"
-          >NEXT SEASON</nuxt-link
-        >
+      <nuxt-link to="/anime/next-season" class="flex justify-between">
+        <h1 class="hover:text-red-500 cursor-pointer text-[#404e5c]">
+          NEXT-SEASON
+        </h1>
         <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
-      </div>
-      <div
-        class="
-          grid grid-cols-2
-          gap-4
-          sm:grid-cols-3 sm:gap-x-3
-          md:grid-cols-5 md:gap-x-5
-        "
-      >
-        <nuxt-link
-          v-for="popu in mediaPopulation"
-          :key="popu.id"
-          :to="`/anime/${popu.id}`"
-          class="hover:text-red-500 text-center"
-        >
-          <img
-            :src="popu.coverImage.large"
-            alt="Image"
-            class="rounded my-0 mx-auto w-full"
-          />
-          <h1>{{ popu.title.english }}</h1>
-        </nuxt-link>
-      </div>
+      </nuxt-link>
+      <PostList :MediaTrend="mediaPopulation" />
     </div>
 
     <!-- Top 100 -->
@@ -71,7 +27,9 @@
         <h1 class="hover:text-red-500">TOP-100</h1>
         <h1 class="hover:text-red-500">View All</h1>
       </nuxt-link>
-      <div v-for="top in topMedia" :key="top.id" class="flex">
+      <PostList :MediaTrend="topMedia" />
+
+      <!-- <div v-for="top in topMedia" :key="top.id" class="flex">
         <p class="p-3 font-bold text-2xl text-[#647380] leading-[3.5]">#1</p>
         <div class="bg-white rounded shadow-md mb-6 flex w-full">
           <nuxt-link :to="`/anime/${top.id}`">
@@ -104,7 +62,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
