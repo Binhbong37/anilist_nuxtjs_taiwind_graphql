@@ -63,7 +63,7 @@
         </li>
       </ul>
     </nav>
-    <Nuxt />
+    <Nuxt class="bg-[#e5ebf1]" />
     <!-- footer -->
     <div class="bg-black min-h-[50px]"></div>
   </div>

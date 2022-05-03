@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto pt-5">
+  <div class="p-5">
     <h1 class="text-2xl font-bold">Trending Anime</h1>
     <!-- form search -->
     <div>form search here</div>
@@ -41,10 +41,15 @@ const getTrending = gql`
   }
 `;
 export default {
-  apollo: {
-    Page: {
+  async asyncData({ app }) {
+    const client = app.apolloProvider.defaultClient;
+    const res = await client.query({
       query: getTrending,
-    },
+    });
+    const { Page } = res.data;
+    return {
+      Page,
+    };
   },
 };
 </script>

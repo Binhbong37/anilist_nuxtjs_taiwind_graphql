@@ -81,7 +81,7 @@ export default {
       navbar: [
         { url: "/", lable: "Home" },
         { url: "/search/anime", lable: "Search" },
-        { url: "/users", lable: "List" },
+        { url: "/responsive", lable: "List" },
       ],
     };
   },

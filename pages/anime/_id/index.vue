@@ -40,8 +40,12 @@
       </div>
       <div v-else-if="title === '/anime/2/character'">
         <p>Khac biet</p>
-        <Hero :title="title" />
+        <p>
+          {{ `/anime/${$route.params.id}/character` }}
+          <Hero :title="title" />
+        </p>
       </div>
+
       <p>{{ $route.params.id }}</p>
     </div>
   </div>
@@ -68,16 +72,30 @@ const getMedia = gql`
 
 export default {
   layout: "detail",
-  apollo: {
-    Media: {
+  async asyncData({ app, params }) {
+    const client = app.apolloProvider.defaultClient;
+    const { id } = params;
+    const res = await client.query({
       query: getMedia,
-      variables() {
-        return {
-          id: this.$route.params.id,
-        };
+      variables: {
+        id,
       },
-    },
+    });
+    const { Media } = res.data;
+    return {
+      Media,
+    };
   },
+  // apollo: {
+  //   Media: {
+  //     query: getMedia,
+  //     variables() {
+  //       return {
+  //         id: this.$route.params.id,
+  //       };
+  //     },
+  //   },
+  // },
   data() {
     return {
       title: "",

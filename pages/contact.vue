@@ -44,7 +44,8 @@ export default {
       }
       return this.posts.filter((post) => {
         const text = post.description.toLowerCase();
-        return text.includes(this.search);
+        const title = post.title.toLowerCase();
+        return text.includes(this.search) || title.includes(this.search);
       });
     },
   },

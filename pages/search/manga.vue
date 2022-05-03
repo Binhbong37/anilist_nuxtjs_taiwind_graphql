@@ -95,7 +95,7 @@ import gql from "graphql-tag";
 const getPage = gql`
   query getTag($page: Int) {
     MediaTrend: Page(page: $page, perPage: 5) {
-      data: media(sort: TRENDING_DESC) {
+      data: media(type: MANGA, sort: TRENDING_DESC) {
         title {
           english
           native
@@ -107,7 +107,7 @@ const getPage = gql`
       }
     }
     mediaPopulation: Page(page: $page, perPage: 5) {
-      data: media(sort: POPULARITY_DESC) {
+      data: media(type: MANGA, sort: POPULARITY_DESC) {
         id
         coverImage {
           large
@@ -118,8 +118,8 @@ const getPage = gql`
         }
       }
     }
-    topMedia: Page(page: $page, perPage: 5) {
-      data: media(sort: SCORE_DESC) {
+    topMedia: Page(page: $page, perPage: 10) {
+      data: media(type: MANGA, sort: SCORE_DESC) {
         id
         genres
         coverImage {
