@@ -10,6 +10,8 @@
         <img :src="trend.coverImage.medium" alt="medium" class="my-0 mx-auto" />
         <h1 class="text-center">{{ trend.id }} {{ trend.title.english }}</h1>
       </nuxt-link>
+
+      <div v-observe-visibility="handleScrollToBottom"></div>
     </div>
   </div>
 </template>
@@ -19,7 +21,7 @@ import gql from "graphql-tag";
 const getPage = gql`
   query getTag {
     Page {
-      media {
+      media(type: ANIME) {
         title {
           english
           native
@@ -39,6 +41,19 @@ export default {
     Page: {
       query: getPage,
     },
+  },
+  data() {
+    return {
+      page: {},
+    };
+  },
+  methods: {
+    handleScrollToBottom() {
+      console.log("tEST new Plugin");
+    },
+  },
+  mounted() {
+    this.page = this.apollo;
   },
 };
 </script>
