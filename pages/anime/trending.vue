@@ -1,6 +1,6 @@
 <template>
   <div class="p-5">
-    <h1 class="text-2xl font-bold">TOP 100 - ANIME</h1>
+    <h1 class="text-2xl font-bold">TRENDING - ANIME</h1>
     <!-- form search -->
     <div>form search here</div>
     <!-- loading data -->

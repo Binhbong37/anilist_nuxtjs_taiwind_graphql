@@ -67,18 +67,6 @@
                   <p>{{ data.role.toLowerCase() }}</p>
                 </div>
               </div>
-
-              <div class="flex justify-end">
-                <div class="text-[12px] p-2">
-                  <h1>{{ data.voiceActors[0].name.userPreferred }}</h1>
-                  <p>{{ data.voiceActors[0].languageV2 }}</p>
-                </div>
-                <img
-                  :src="data.voiceActors[0].image.medium"
-                  alt="medium"
-                  class="w-[60px] h-[80px]"
-                />
-              </div>
             </div>
           </div>
         </div>
@@ -96,7 +84,7 @@
 import gql from "graphql-tag";
 const getMedia = gql`
   query getMedia($id: Int) {
-    Media(id: $id, type: ANIME) {
+    Media(id: $id, type: MANGA) {
       id
       bannerImage
       coverImage {
@@ -122,17 +110,6 @@ const getMedia = gql`
             }
           }
           role
-          voiceActors {
-            id
-            image {
-              large
-              medium
-            }
-            languageV2
-            name {
-              userPreferred
-            }
-          }
         }
       }
     }

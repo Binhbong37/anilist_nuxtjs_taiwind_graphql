@@ -27,39 +27,39 @@
     </div>
     <!-- Trending -->
     <div class="pt-12">
-      <nuxt-link to="/anime/trending" class="flex justify-between">
+      <nuxt-link to="/manga/trending" class="flex justify-between">
         <h1 class="hover:text-red-500 cursor-pointer text-[#404e5c]">
           TRENDING NOW
         </h1>
         <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
       </nuxt-link>
-      <PostList :MediaTrend="MediaTrend" />
+      <PostListManga :MediaTrend="MediaTrend" />
     </div>
     <!-- Next-Season -->
     <div class="pt-12">
-      <nuxt-link to="/anime/trending" class="flex justify-between">
+      <nuxt-link to="/manga/next-season" class="flex justify-between">
         <h1 class="hover:text-red-500 cursor-pointer text-[#404e5c]">
           NEXT-SEASON
         </h1>
         <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
       </nuxt-link>
-      <PostList :MediaTrend="mediaPopulation" />
+      <PostListManga :MediaTrend="mediaPopulation" />
     </div>
 
     <!-- Top 100 -->
     <div class="mt-12 pb-12">
-      <nuxt-link to="/anime/top-100" class="flex justify-between">
+      <nuxt-link to="/manga/top-100" class="flex justify-between">
         <h1 class="hover:text-red-500">TOP-100</h1>
         <h1 class="hover:text-red-500">View All</h1>
       </nuxt-link>
       <div v-for="top in topMedia" :key="top.id" class="flex">
         <p class="p-3 font-bold text-2xl text-[#647380] leading-[3.5]">#1</p>
         <div class="bg-white rounded shadow-md mb-6 flex w-full">
-          <nuxt-link :to="`/anime/${top.id}`">
+          <nuxt-link :to="`/manga/${top.id}`">
             <img :src="top.coverImage.large" class="w-20 p-3 rounded-md" />
           </nuxt-link>
           <div class="pt-4">
-            <nuxt-link :to="`/anime/${top.id}`" class="hover:text-red-500">{{
+            <nuxt-link :to="`/manga/${top.id}`" class="hover:text-red-500">{{
               top.title.english
             }}</nuxt-link>
 

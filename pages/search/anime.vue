@@ -33,17 +33,17 @@
         </h1>
         <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
       </nuxt-link>
-      <PostList :MediaTrend="MediaTrend" />
+      <PostListAnime :MediaTrend="MediaTrend" />
     </div>
     <!-- Next-Season -->
     <div class="pt-12">
-      <nuxt-link to="/anime/trending" class="flex justify-between">
+      <nuxt-link to="/anime/next-season" class="flex justify-between">
         <h1 class="hover:text-red-500 cursor-pointer text-[#404e5c]">
           NEXT-SEASON
         </h1>
         <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
       </nuxt-link>
-      <PostList :MediaTrend="mediaPopulation" />
+      <PostListAnime :MediaTrend="mediaPopulation" />
     </div>
 
     <!-- Top 100 -->

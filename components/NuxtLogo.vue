@@ -66,11 +66,18 @@ export default {
 
   methods: {
     takeSearchInput() {
+      if (!this.search) {
+        return (this.pageData = this.Page.media);
+      }
       const newDataSearch = this.pageData.filter((data) => {
-        const newData = data.title.english.toLowerCase();
+        const newData = data.title.english;
+        let conditon = this.search;
 
-        return newData.includes(this.search);
+        return (
+          newData.toLowerCase().includes(conditon) || newData.includes(conditon)
+        );
       });
+      this.search = "";
       return (this.pageData = newDataSearch);
     },
     handleScroll() {

@@ -2,6 +2,7 @@
   <div>
     <nav
       class="
+        w-full
         px-[56px]
         bg-[#2b2d42]
         text-white
@@ -55,16 +56,56 @@
         "
         :class="!click ? 'top-[40px] opacity-100' : ''"
       >
+        <li class="mx-4 my-6 md:my-0" @click="click = true">
+          <nuxt-link to="/" class="text-xl hover:text-cyan-700 duration-500"
+            >Home</nuxt-link
+          >
+        </li>
         <li
-          v-for="menu in navbar"
-          :key="menu.url"
-          class="mx-4 my-6 md:my-0"
-          @click="click = true"
+          class="mx-4 my-6 md:my-0 relative"
+          @mouseenter="handleDropdown"
+          @mouseleave="handleCloseDropdown"
         >
           <nuxt-link
-            :to="menu.url"
+            to="/search/anime"
             class="text-xl hover:text-cyan-700 duration-500"
-            >{{ menu.lable }}</nuxt-link
+            @click="click = true"
+            >Search <i class="fas fa-caret-down"></i>
+          </nuxt-link>
+          <ul
+            v-if="dropdown"
+            class="absolute bg-[#2b2d42] md:min-h-[60px] md:top-10"
+          >
+            <li>
+              <nuxt-link
+                to="/search/anime"
+                class="p-5 hover:text-cyan-700"
+                @click="click = true"
+                >Anime</nuxt-link
+              >
+            </li>
+            <li>
+              <nuxt-link
+                to="/search/manga"
+                class="p-5 mt-3 hover:text-cyan-700"
+                @click="click = true"
+                >Manga</nuxt-link
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="mx-4 my-6 md:my-0" @click="click = true">
+          <nuxt-link
+            to="/responsive"
+            class="text-xl hover:text-cyan-700 duration-500"
+            >List</nuxt-link
+          >
+        </li>
+        <li class="mx-4 my-6 md:my-0" @click="click = true">
+          <nuxt-link
+            to="/users"
+            class="text-xl hover:text-cyan-700 duration-500"
+            >The band</nuxt-link
           >
         </li>
       </ul>
@@ -80,31 +121,20 @@ export default {
   data() {
     return {
       click: true,
-      navbar: [
-        { url: "/", lable: "Home" },
-        { url: "/search/anime", lable: "Search" },
-        { url: "/responsive", lable: "List" },
-      ],
+      dropdown: false,
     };
   },
   methods: {
     toggleMenu() {
       this.click = !this.click;
+      this.dropdown = false;
     },
-    // toggleMenu: () => {
-    //   const toggleMenu = document.getElementById("menu");
-    //   const list = document.querySelector("ul");
-    //   console.log(toggleMenu.name);
-    //   if (toggleMenu.name === "menu") {
-    //     toggleMenu.name = "close";
-    //     list.classList.add("top-[40px]");
-    //     list.classList.add("opacity-70");
-    //   } else {
-    //     toggleMenu.name = "menu";
-    //     list.classList.remove("top-[40px]");
-    //     list.classList.remove("opacity-70");
-    //   }
-    // },
+    handleDropdown() {
+      this.dropdown = true;
+    },
+    handleCloseDropdown() {
+      this.dropdown = false;
+    },
   },
 };
 </script>

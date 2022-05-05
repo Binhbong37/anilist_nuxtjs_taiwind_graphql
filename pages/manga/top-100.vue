@@ -1,6 +1,6 @@
 <template>
   <div class="p-5">
-    <h1 class="text-2xl font-bold">NEXT SEASON - ANIME</h1>
+    <h1 class="text-2xl font-bold">TOP 100 - MANGA</h1>
     <!-- form search -->
     <div>form search here</div>
     <!-- loading data -->
@@ -8,7 +8,7 @@
       <nuxt-link
         v-for="(trending, index) in pageData"
         :key="index"
-        :to="`/anime/${trending.id}`"
+        :to="`/manga/${trending.id}`"
         class="text-center"
       >
         <img
@@ -27,7 +27,7 @@ import gql from "graphql-tag";
 const getTrending = gql`
   query getTag($page: Int) {
     Page(page: $page) {
-      media(type: ANIME, sort: POPULARITY_DESC) {
+      media(type: MANGA, sort: SCORE_DESC) {
         title {
           english
           native
@@ -58,6 +58,7 @@ export default {
       const log3 = document.body.scrollHeight - 50;
       if (log1 + log2 >= log3) {
         this.page++;
+        console.log(this.page);
         const newPage = this.Page.media;
         this.pageData = [...this.pageData, ...newPage];
       }
@@ -78,6 +79,11 @@ export default {
       Page,
     };
   },
+  // apollo: {
+  //   Page: {
+  //     query: getTrending,
+  //   },
+  // },
 };
 </script>
 
