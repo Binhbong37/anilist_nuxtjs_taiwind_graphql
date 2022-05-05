@@ -52,8 +52,10 @@
         <h1 class="hover:text-red-500">TOP-100</h1>
         <h1 class="hover:text-red-500">View All</h1>
       </nuxt-link>
-      <div v-for="top in topMedia" :key="top.id" class="flex">
-        <p class="p-3 font-bold text-2xl text-[#647380] leading-[3.5]">#1</p>
+      <div v-for="(top, index) in topMedia" :key="top.id" class="flex">
+        <p class="p-3 font-bold text-2xl text-[#647380] leading-[3.5]">
+          #{{ index + 1 }}
+        </p>
         <div class="bg-white rounded shadow-md mb-6 flex w-full">
           <nuxt-link :to="`/anime/${top.id}`">
             <img :src="top.coverImage.large" class="w-20 p-3 rounded-md" />

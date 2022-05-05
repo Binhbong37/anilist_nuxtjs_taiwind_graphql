@@ -2,9 +2,14 @@
   <div>
     <nav
       class="
+        absolute
+        w-full
+        h-[68px]
+        z-10
         px-[135px]
         bg-[#2b2d42]
-        hover:bg-opacity-50
+        opacity-50
+        hover:opacity-100
         text-white
         shadow
         cursor-pointer
@@ -21,6 +26,7 @@
             src="https://anilist.co/img/icons/icon.svg"
             alt="logo"
             class="h-10 w-10"
+            @click="click = true"
           />
           Analist
         </nuxt-link>
@@ -35,9 +41,8 @@
               cursor-pointer
               md:hidden
             "
-            id="menu"
-            name="menu"
             @click="toggleMenu"
+            :class="click ? 'fas fa-bars' : 'fas fa-times'"
           ></i>
         </span>
       </div>
@@ -47,6 +52,7 @@
           z-[2]
           md:z-auto md:static
           absolute
+          bg-[#2b2d42]
           w-full
           left-0
           md:w-auto md:pl-0
@@ -58,8 +64,14 @@
           ease-in
           duration-500
         "
+        :class="!click ? 'top-[40px] opacity-100' : ''"
       >
-        <li v-for="menu in navbar" :key="menu.url" class="mx-4 my-6 md:my-0">
+        <li
+          v-for="menu in navbar"
+          :key="menu.url"
+          class="mx-4 my-6 md:my-0"
+          @click="click = true"
+        >
           <nuxt-link
             :to="menu.url"
             class="text-xl hover:text-cyan-700 duration-500"
@@ -78,6 +90,7 @@ export default {
   name: "PageLayout",
   data() {
     return {
+      click: true,
       navbar: [
         { url: "/", lable: "Home" },
         { url: "/search/anime", lable: "Search" },
@@ -86,19 +99,8 @@ export default {
     };
   },
   methods: {
-    toggleMenu: () => {
-      const toggleMenu = document.getElementById("menu");
-      const list = document.querySelector("ul");
-      console.log(toggleMenu.name);
-      if (toggleMenu.name === "menu") {
-        toggleMenu.name = "close";
-        list.classList.add("top-[40px]");
-        list.classList.add("opacity-70");
-      } else {
-        toggleMenu.name = "menu";
-        list.classList.remove("top-[40px]");
-        list.classList.remove("opacity-70");
-      }
+    toggleMenu() {
+      this.click = !this.click;
     },
   },
 };

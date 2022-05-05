@@ -8,7 +8,7 @@
         placeholder="Any"
         v-model="search"
       />
-      <button class="btn">click</button>
+      <button @click.prevent="addRoutePath" class="btn">click</button>
     </form>
     <div v-for="post in filterPosts" :key="post.id">
       <tutorial :post="post"></tutorial>
@@ -31,10 +31,8 @@ export default {
     };
   },
   methods: {
-    searchva(e) {
-      return this.posts.filter((post) => {
-        return post.description.includes(e);
-      });
+    addRoutePath() {
+      this.$router.push({ path: "/contact/character", params: {} });
     },
   },
   computed: {
