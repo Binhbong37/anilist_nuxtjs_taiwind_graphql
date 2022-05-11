@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     addRoutePath() {
-      this.$router.push({ path: "/contact/character", params: {} });
+      this.$router.push({ path: "/search/anime", query: { search: "abc" } });
     },
   },
   computed: {

@@ -8,7 +8,7 @@
         </h1>
         <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
       </nuxt-link>
-      <PostList :MediaTrend="MediaTrend" />
+      <PostListAnime :MediaTrend="MediaTrend" />
     </div>
     <!-- Next-Season -->
     <div class="pt-12">
@@ -18,7 +18,7 @@
         </h1>
         <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
       </nuxt-link>
-      <PostList :MediaTrend="mediaPopulation" />
+      <PostListAnime :MediaTrend="mediaPopulation" />
     </div>
 
     <!-- Top 100 -->
@@ -27,10 +27,16 @@
         <h1 class="hover:text-red-500">TOP-100</h1>
         <h1 class="hover:text-red-500">View All</h1>
       </nuxt-link>
-      <PostList :MediaTrend="topMedia" />
+      <PostListAnime class="md:hidden" :MediaTrend="topMedia" />
 
-      <!-- <div v-for="top in topMedia" :key="top.id" class="flex">
-        <p class="p-3 font-bold text-2xl text-[#647380] leading-[3.5]">#1</p>
+      <div
+        v-for="(top, i) in topMedia"
+        :key="top.id"
+        class="hidden md:flex md:overflow-auto"
+      >
+        <p class="p-3 font-bold text-2xl text-[#647380] leading-[3.5]">
+          #{{ i + 1 }}
+        </p>
         <div class="bg-white rounded shadow-md mb-6 flex w-full">
           <nuxt-link :to="`/anime/${top.id}`">
             <img :src="top.coverImage.large" class="w-20 p-3 rounded-md" />
@@ -62,7 +68,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -119,13 +125,15 @@ export default {
     };
   },
   apollo: {
-    Page: {
+    media: {
       query: getPage,
       variables: {
         page: 1,
       },
       result({ data, loading }) {
+        console.log(loading);
         if (!loading) {
+          console.log(data);
           this.MediaTrend = data.MediaTrend.data;
           this.mediaPopulation = data.mediaPopulation.data;
           this.topMedia = data.topMedia.data;

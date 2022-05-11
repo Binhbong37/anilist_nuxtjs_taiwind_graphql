@@ -1,55 +1,128 @@
-<template>
-  <div class="p-5 grid grid-cols-2">
-    <Users v-for="(ani, ind) in anime_list" :key="ind" :animee="ani" />
+<template >
+  <div>
+    <div v-if="loading > 0">Loading</div>
+    <!-- Actual view -->
+    <div v-else>
+      <PostList :hoz="false" :MediaList="mediaTrends" title="Trending" />
+      <PostList
+        :hoz="false"
+        :MediaList="mediaPopulars"
+        title="Popular this season"
+      />
+      <PostList
+        :hoz="false"
+        :MediaList="mediaPopulars"
+        title="UPCOMING NEXT SEASON"
+      />
+      <PostList :hoz="true" :MediaList="topAnime" title="Top anime" />
+    </div>
   </div>
 </template>
-
 <script>
+import gql from "graphql-tag";
+const mediaQuery = gql`
+  query tags($page: Int) {
+    mediaTrends: Page(page: $page, perPage: 6) {
+      data: media(sort: TRENDING_DESC) {
+        ...comparisonFields
+      }
+    }
+    mediaPopulars: Page(page: $page, perPage: 6) {
+      data: media(sort: POPULARITY_DESC) {
+        ...comparisonFields
+      }
+    }
+
+    topAnime: Page(page: $page, perPage: 10) {
+      data: media(sort: SCORE_DESC, type: ANIME) {
+        id
+        season
+        trending
+        genres
+        popularity
+        seasonYear
+        format
+        averageScore
+        episodes
+        duration
+        status
+        coverImage {
+          extraLarge
+          large
+          medium
+          color
+        }
+        title {
+          romaji
+          english
+          native
+          userPreferred
+        }
+      }
+    }
+  }
+
+  fragment comparisonFields on Media {
+    id
+    format
+    averageScore
+    episodes
+    studios(isMain: true) {
+      nodes {
+        name
+      }
+    }
+    status
+    coverImage {
+      extraLarge
+      large
+      medium
+      color
+    }
+    nextAiringEpisode {
+      episode
+      airingAt
+    }
+    genres
+    title {
+      romaji
+      english
+      native
+      userPreferred
+    }
+  }
+`;
+
 export default {
+  apollo: {
+    media: {
+      query: mediaQuery,
+      loadingKey: "loading",
+      manual: true,
+      result({ data, loading }) {
+        if (!loading) {
+          console.log(data.mediaTrends.data);
+          this.mediaTrends = data.mediaTrends.data;
+          this.mediaPopulars = data.mediaPopulars.data;
+          this.topAnime = data.topAnime.data;
+        }
+      },
+    },
+  },
+
   data() {
     return {
-      anime_list: [],
+      loading: 0,
+      mediaTrends: [],
+      topAnime: [],
+      mediaPopulars: [],
     };
   },
-  methods: {
-    getAnime() {
-      const anime_title = [
-        "Naruto",
-        "One Piece",
-        "Dragon Ball",
-        "Conam",
-        "Ito",
-        "Hunter x Hunter",
-        "Fairy Tail",
-        "Tokyo Ghoul",
-        "Code Geass",
-      ];
-      const anime = [];
-      for (let i = 0; i < 10; i++) {
-        anime.push({
-          title: anime_title[Math.floor(Math.random() * anime_title.length)],
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam libero laborum sapiente provident, maiores voluptatum placeat quibusdam reiciendis ipsum dolore vel accusamus animi, exercitationem assumenda rem odio atque obcaecati tenetur.",
-        });
-      }
 
-      return anime;
-    },
-    handleScroll() {
-      const log1 = window.scrollY;
-      const log2 = window.innerHeight;
-      const log3 = document.body.scrollHeight - 50;
-      console.log({ log1, log2, log3 });
-
-      const newAnime = this.getAnime();
-      if (log1 + log2 >= log3) {
-        this.anime_list = [...this.anime_list, ...newAnime];
-      }
-    },
-  },
-  mounted() {
-    this.anime_list = this.getAnime();
-    window.addEventListener("scroll", this.handleScroll);
+  created() {
+    //   console.log(mediaTrends);
   },
 };
 </script>
+<style >
+</style>
