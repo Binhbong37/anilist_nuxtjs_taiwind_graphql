@@ -8,14 +8,13 @@
           alt="imageLarge"
           class="rouder -mt-24 mb-5 w-3/4"
         />
-        <div>
-          <span class="sm:p-2 bg-[#12acfd] rounded text-white w-10 h-10">
-            Add to List
-          </span>
+        <div class="">
+          <a class="sm:p-2 bg-[#12acfd] rounded text-white">Add to List</a>
 
           <span
             class="bg-red-700 text-white rounded min-w-10 min-h-10 p-2 ml-10"
-            ><i class="fas fa-heart"></i>
+          >
+            <i class="fas fa-heart"></i>
           </span>
         </div>
       </div>
