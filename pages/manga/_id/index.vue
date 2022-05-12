@@ -38,10 +38,10 @@
       </ul>
     </div>
     <div class="min-h-[100px] bg-[#e5ebf1] p-12 flex">
-      <div class="bg-white min-h-[100px] w-2/6">
-        <h1>Left Side</h1>
+      <div class="w-2/6">
+        <SideBarLeft />
       </div>
-      <div class="min-h-[100px] w-5/6 ml-7">
+      <div class="min-h-[100px] w-4/6 ml-7">
         <div class="character">
           <h1>Characters</h1>
           <div class="grid grid-cols-2 gap-5">
@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import SideBarLeft from "../../../components/DetailPage/SideBarLeft.vue";
 import gql from "graphql-tag";
 const getMedia = gql`
   query getMedia($id: Int) {
@@ -118,6 +119,9 @@ const getMedia = gql`
 
 export default {
   layout: "detail",
+  components: {
+    SideBarLeft,
+  },
   async asyncData({ app, params }) {
     const client = app.apolloProvider.defaultClient;
     const { id } = params;

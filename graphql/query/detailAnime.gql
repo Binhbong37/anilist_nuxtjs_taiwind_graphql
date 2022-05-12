@@ -1,0 +1,58 @@
+query ($id: Int) {
+  Media(id: $id, type: ANIME) {
+    id
+    bannerImage
+    coverImage {
+      large
+      medium
+    }
+    title {
+      romaji
+      english
+      native
+    }
+    status
+    description
+    seasonYear
+    meanScore
+    genres
+    popularity
+    format
+    season
+    status
+    seasonYear
+    episodes
+    duration
+    characters(sort: FAVOURITES_DESC) {
+      edges {
+        node {
+          id
+          image {
+            large
+            medium
+          }
+          name {
+            userPreferred
+          }
+        }
+        role
+        voiceActors(sort: FAVOURITES_DESC) {
+          id
+          image {
+            large
+            medium
+          }
+          languageV2
+          name {
+            userPreferred
+          }
+        }
+      }
+    }
+    streamingEpisodes {
+      title
+      thumbnail
+      url
+    }
+  }
+}

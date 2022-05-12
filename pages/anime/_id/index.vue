@@ -21,13 +21,20 @@
       </div>
       <div class="w-5/6 mt-5">
         <h1 class="text-2xl font-bold">{{ Media.title.english }}</h1>
-        <p>
-          {{ Media.description }}
-        </p>
+        <div class="anime-detail__header__description">
+          <p v-html="getDescription(500)"></p>
+          <span
+            class="py-4 -mb-4 font-bold text-xl hover:text-red-500"
+            :class="isHide ? 'block' : 'hidden'"
+            @click="getFull"
+          >
+            Read more
+          </span>
+        </div>
       </div>
     </div>
-    <div class="">
-      <ul class="flex justify-center text-xl">
+    <div class="mt-5">
+      <ul class="flex justify-center">
         <button
           v-for="char in key"
           :key="char.url"
@@ -39,62 +46,11 @@
     </div>
     <div class="min-h-[100px] bg-[#e5ebf1] p-12 flex">
       <div class="w-2/6">
-        <div class="bg-white min-h-[50px] rounded">
-          <i class="fas fa-star leading-[50px] text-yellow-400 ml-5"></i>
-          <span>#209 Highest Rated All Time</span>
-        </div>
-        <div class="bg-white min-h-[50px] rounded mt-3">
-          <i class="fas fa-heart leading-[50px] text-red-600 ml-5"></i>
-          <span>#284 Most Populator All Time</span>
-        </div>
-        <div class="bg-white rounded mt-3">
-          <div v-for="i in 5" :key="i" class="ml-5 mt-2">
-            <h1>Title {{ i }}</h1>
-            <p class="text-sm">Descrip {{ i }}</p>
-          </div>
-        </div>
+        <SideBarLeft />
       </div>
-      <div class="min-h-[100px] w-5/6 ml-7">
-        <div class="character">
-          <h1>Characters</h1>
-          <div class="grid grid-cols-2 gap-5">
-            <div
-              v-for="(data, index) in Media.characters.edges"
-              :key="index"
-              class="
-                bg-white
-                max-w-[321px] max-h-[81px]
-                shadow
-                flex
-                justify-between
-              "
-            >
-              <div class="flex">
-                <img
-                  :src="data.node.image.medium"
-                  alt="Image"
-                  class="w-[60px] h-[80px]"
-                />
-                <div class="text-[12px] p-2 itme">
-                  <h1>{{ data.node.name.userPreferred }}</h1>
-                  <p>{{ data.role.toLowerCase() }}</p>
-                </div>
-              </div>
-
-              <div class="flex justify-end">
-                <div class="text-[12px] p-2">
-                  <h1>{{ data.voiceActors[0].name.userPreferred }}</h1>
-                  <p>{{ data.voiceActors[0].languageV2 }}</p>
-                </div>
-                <img
-                  :src="data.voiceActors[0].image.medium"
-                  alt="medium"
-                  class="w-[60px] h-[80px]"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="min-h-[100px] w-4/6 ml-7">
+        <!-- character -->
+        <Character :character="Media.characters.edges" />
         <div class="watch">
           <h1>Watch</h1>
         </div>
@@ -104,64 +60,23 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
-const getMedia = gql`
-  query getMedia($id: Int) {
-    Media(id: $id, type: ANIME) {
-      id
-      bannerImage
-      coverImage {
-        large
-        medium
-      }
-      title {
-        romaji
-        english
-        native
-      }
-      description
-      characters(perPage: 6) {
-        edges {
-          node {
-            id
-            image {
-              large
-              medium
-            }
-            name {
-              userPreferred
-            }
-          }
-          role
-          voiceActors {
-            id
-            image {
-              large
-              medium
-            }
-            languageV2
-            name {
-              userPreferred
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+import SideBarLeft from "../../../components/DetailPage/SideBarLeft.vue";
+import Character from "../../../components/DetailPage/Character.vue";
 
 export default {
   layout: "detail",
+  components: { SideBarLeft, Character },
   async asyncData({ app, params }) {
     const client = app.apolloProvider.defaultClient;
     const { id } = params;
-    const res = await client.query({
-      query: getMedia,
-      variables: {
-        id,
-      },
+    const query = {
+      query: require("../../../graphql/query/detailAnime.gql"),
+      variables: { id },
+    };
+    let Media;
+    await client.query(query).then((data) => {
+      Media = data.data.Media;
     });
-    const { Media } = res.data;
     return {
       Media,
     };
@@ -175,11 +90,25 @@ export default {
         { url: "/anime/2/watch", label: "Watch" },
       ],
       inforCharacter: [],
+      isHide: true,
     };
   },
-  methods: {},
+  methods: {
+    getDescription(len) {
+      if (this.isHide) {
+        if (this.Media.description.length > len) {
+          return this.Media.description.slice(0, len) + ". . .";
+        }
+      }
+      return this.Media.description;
+    },
+    getFull() {
+      this.isHide = false;
+      return this.Media.description;
+    },
+  },
 };
 </script>
 
-<style>
+<style scope>
 </style>
