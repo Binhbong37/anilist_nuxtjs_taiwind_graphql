@@ -49,6 +49,31 @@ query ($id: Int) {
         }
       }
     }
+    relations {
+      nodes {
+        id
+        title {
+          romaji
+        }
+        coverImage {
+          extraLarge
+        }
+      }
+    }
+    staff(sort: RELEVANCE, perPage: 4) {
+      edges {
+        node {
+          id
+          name {
+            userPreferred
+          }
+          image {
+            large
+          }
+        }
+        role
+      }
+    }
     streamingEpisodes {
       title
       thumbnail

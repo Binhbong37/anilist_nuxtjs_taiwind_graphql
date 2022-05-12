@@ -13,14 +13,14 @@
             alt="Image"
             class="w-[60px] h-[80px]"
           />
-          <div class="text-[12px] p-2 itme">
+          <div class="text-[12px] p-2 flex flex-col justify-around">
             <h1>{{ data.node.name.userPreferred }}</h1>
             <p>{{ data.role.toLowerCase() }}</p>
           </div>
         </div>
 
         <div class="flex justify-end">
-          <div class="text-[12px] p-2">
+          <div class="text-[12px] p-2 flex flex-col justify-around">
             <h1>{{ data.voiceActors[0].name.userPreferred }}</h1>
             <p>{{ data.voiceActors[0].languageV2 }}</p>
           </div>

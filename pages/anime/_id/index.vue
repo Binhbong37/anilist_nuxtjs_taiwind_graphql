@@ -34,14 +34,31 @@
       </div>
     </div>
     <div class="mt-5">
-      <ul class="flex justify-center">
-        <button
-          v-for="char in key"
-          :key="char.url"
-          class="px-2 hover:text-red-500"
-        >
-          {{ char.label }}
-        </button>
+      <ul class="flex justify-center text-xl">
+        <li>
+          <nuxt-link
+            :to="`/anime/${$route.params.id}`"
+            class="px-2 hover:text-red-500"
+          >
+            Overview
+          </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link
+            :to="`/anime/${$route.params.id}/character`"
+            class="px-2 hover:text-red-500"
+          >
+            Character
+          </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link
+            :to="`/anime/${$route.params.id}/watch`"
+            class="px-2 hover:text-red-500"
+          >
+            Watch
+          </nuxt-link>
+        </li>
       </ul>
     </div>
     <div class="min-h-[100px] bg-[#e5ebf1] p-12 flex">
@@ -50,10 +67,11 @@
       </div>
       <div class="min-h-[100px] w-4/6 ml-7">
         <!-- character -->
-        <Character :character="Media.characters.edges" />
-        <div class="watch">
-          <h1>Watch</h1>
-        </div>
+        <nuxt-child
+          :character="Media.characters.edges"
+          :realations="Media.relations.nodes"
+          :watch="Media.streamingEpisodes"
+        />
       </div>
     </div>
   </div>
@@ -84,11 +102,6 @@ export default {
 
   data() {
     return {
-      key: [
-        { url: "/anime/2", label: "Overview" },
-        { url: "/anime/2/character", label: "Character" },
-        { url: "/anime/2/watch", label: "Watch" },
-      ],
       inforCharacter: [],
       isHide: true,
     };
