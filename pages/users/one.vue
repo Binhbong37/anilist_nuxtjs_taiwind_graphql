@@ -1,5 +1,8 @@
 <template >
-  <div>
+  <div class="pt-12">
+    <div>
+      <Search />
+    </div>
     <div v-if="loading > 0">Loading</div>
     <!-- Actual view -->
     <div v-else>
@@ -19,6 +22,7 @@
   </div>
 </template>
 <script>
+import Search from "../../components/Search.vue";
 import gql from "graphql-tag";
 const mediaQuery = gql`
   query ($page: Int) {
@@ -94,6 +98,9 @@ const mediaQuery = gql`
 `;
 
 export default {
+  components: {
+    Search,
+  },
   apollo: {
     media: {
       query: mediaQuery,

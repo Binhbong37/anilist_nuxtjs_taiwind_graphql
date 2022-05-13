@@ -1,6 +1,11 @@
 <template>
   <div
-    class="grid grid-cols-2 sm:grid-cols-3 sm:gap-x-3 md:grid-cols-5 md:gap-x-5"
+    class="
+      grid grid-cols-2
+      gap-4
+      sm:grid-cols-3 sm:gap-x-3
+      md:grid-cols-5 md:gap-x-5
+    "
   >
     <nuxt-link
       v-for="trend in MediaTrend"

@@ -7,106 +7,110 @@
         left-0
         right-0
         border-gray-200
-        px-20
-        py-2
-        md:flex md:justify-between md:items-center
+        px-12
+        py-4
+        md:py-0 md:items-center
       "
     >
-      <div class="flex justify-between items-center">
-        <nuxt-link @click="handleClose" to="/" class="text-center text-white">
-          <img
-            src="https://anilist.co/img/icons/icon.svg"
-            class="logo"
-            alt="Anilist"
-          />
-          Analist
-        </nuxt-link>
+      <div class="flex justify-between">
+        <div>
+          <nuxt-link @click="handleClose" to="/" class="text-center text-white">
+            <img
+              src="https://anilist.co/img/icons/icon.svg"
+              class="logo"
+              alt="Anilist"
+            />
+            Analist
+          </nuxt-link>
+        </div>
 
-        <div class="text-white text-2xl cursor-pointer md:hidden">
+        <div class="md:leading-[72px] md:flex md:justify-between">
+          <div
+            class="
+              flex flex-col
+              md:flex-row md:space-x-12 md:mt-0 md:font-bold
+              z-[2]
+              md:z-auto md:static
+              absolute
+              bg-[#2b2d42]
+              w-full
+              left-0
+              pl-5
+              pt-3
+              md:opacity-100
+              opacity-0
+              top-[-350px]
+              transition-all
+              ease-in
+              duration-500
+            "
+            :class="!click ? 'top-[100px] opacity-100' : ''"
+          >
+            <ul class="md:flex">
+              <li @click="handleClose" class="px-4">
+                <a
+                  href="/search/anime"
+                  class="block border-b md:border-0 md:p-0 text"
+                  >Browse</a
+                >
+              </li>
+              <li @click="handleClose" class="px-4">
+                <a href="#" class="block py-2 border-b md:border-0 md:p-0 text"
+                  >Social</a
+                >
+              </li>
+              <li @click="handleClose" class="px-4">
+                <a href="#" class="block py-2 border-b md:border-0 md:p-0 text"
+                  >Forum</a
+                >
+              </li>
+            </ul>
+            <ul class="hidden md:flex">
+              <li>
+                <a
+                  href="#"
+                  class="
+                    space-x-10
+                    mr-5
+                    block
+                    py-2
+                    pr-4
+                    pl-3
+                    border-b
+                    md:border-0 md:p-0
+                    text
+                  "
+                  >Login</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="
+                    sign-up-btn
+                    text-white
+                    bg-[#3577ff]
+                    rounded-md
+                    px-6
+                    py-3
+                    text-center
+                    mr-40
+                  "
+                >
+                  Sign Up
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="text-white text-2xl leading-[72px] cursor-pointer md:hidden"
+        >
           <i
             class="fas fa-bars text-2xl hover:text-slate-50 cursor-pointer"
             @click="toggleMenu"
             :class="click ? 'fas fa-bars' : 'fas fa-times'"
           ></i>
-        </div>
-      </div>
-      <div class="pb-3 md:flex md:justify-between">
-        <div
-          class="
-            flex flex-col
-            md:flex-row md:space-x-12 md:mt-0 md:font-bold
-            z-[2]
-            md:z-auto md:static
-            absolute
-            bg-[#2b2d42]
-            w-full
-            left-0
-            md:w-auto md:pl-0
-            pl-5
-            md:opacity-100
-            opacity-0
-            top-[-300px]
-            transition-all
-            ease-in
-            duration-500
-          "
-          :class="!click ? 'top-[100px] opacity-100' : ''"
-        >
-          <ul class="md:flex">
-            <li @click="handleClose" class="px-4">
-              <a
-                href="/search/anime"
-                class="block border-b md:border-0 md:p-0 text"
-                >Browse</a
-              >
-            </li>
-            <li @click="handleClose" class="px-4">
-              <a href="#" class="block py-2 border-b md:border-0 md:p-0 text"
-                >Social</a
-              >
-            </li>
-            <li @click="handleClose" class="px-4">
-              <a href="#" class="block py-2 border-b md:border-0 md:p-0 text"
-                >Forum</a
-              >
-            </li>
-          </ul>
-          <ul class="hidden md:flex">
-            <li>
-              <a
-                href="#"
-                class="
-                  space-x-10
-                  mr-5
-                  block
-                  py-2
-                  pr-4
-                  pl-3
-                  border-b
-                  md:border-0 md:p-0
-                  text
-                "
-                >Login</a
-              >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="
-                  sign-up-btn
-                  text-white
-                  bg-[#3577ff]
-                  rounded-md
-                  px-6
-                  py-3
-                  text-center
-                  mr-40
-                "
-              >
-                Sign Up
-              </a>
-            </li>
-          </ul>
         </div>
       </div>
     </nav>

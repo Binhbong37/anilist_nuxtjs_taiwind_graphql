@@ -1,7 +1,7 @@
 <template>
   <div class="character">
     <h1>Characters</h1>
-    <div class="grid grid-cols-2 gap-5">
+    <div class="grid gap-y-3 md:grid-cols-2 md:gap-5">
       <div
         v-for="(data, index) in character"
         :key="index"
@@ -19,7 +19,7 @@
           </div>
         </div>
 
-        <div v-if="data.voiceActors > 0" class="flex justify-end">
+        <div v-if="data.voiceActors.length > 0" class="flex justify-end">
           <div class="text-[12px] p-2 flex flex-col justify-around">
             <h1>{{ data.voiceActors[0].name.userPreferred }}</h1>
             <p>{{ data.voiceActors[0].languageV2 }}</p>

@@ -16,9 +16,9 @@
       <img
         :src="trend.coverImage.large"
         alt="Image"
-        class="rounded my-0 mx-auto w-[185px] h-[265px]"
+        class="rounded lg:h-[363px] md:h-[207px] w-full"
       />
-      <h1 class="h-">{{ trend.title.english }}</h1>
+      <h1 class="text-left">{{ trend.title.english }}</h1>
     </nuxt-link>
   </div>
 </template>

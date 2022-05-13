@@ -1,70 +1,93 @@
 <template>
   <div>
-    <img :src="Media.bannerImage" alt="banner" class="w-full" />
-    <div class="px-12 flex">
-      <div class="w-2/6">
-        <img
-          :src="Media.coverImage.large"
-          alt="imageLarge"
-          class="rouder -mt-24 mb-5 w-3/4"
-        />
-        <div class="">
-          <a class="sm:p-2 bg-[#12acfd] rounded text-white">Add to List</a>
-
-          <span
-            class="bg-red-700 text-white rounded min-w-10 min-h-10 p-2 ml-10"
-          >
-            <i class="fas fa-heart"></i>
-          </span>
+    <div class="bg-white">
+      <img :src="Media.bannerImage" alt="banner" class="h-[210px] md:w-full" />
+      <div class="px-12 md:flex">
+        <div class="w-2/6 flex md:block">
+          <img
+            :src="Media.coverImage.large"
+            alt="imageLarge"
+            class="rounded -mt-14 md:-mt-24 mb-5 md:w-3/4"
+          />
+          <div class="flex mt-5">
+            <div>
+              <button
+                class="
+                  p-1
+                  bg-[#12acfd]
+                  rounded
+                  text-white
+                  min-w-[150px]
+                  md:min-w-[200px] md:py-2
+                  ml-5
+                "
+              >
+                Add to List
+              </button>
+            </div>
+            <div
+              class="
+                bg-red-700
+                text-white
+                rounded
+                max-h-8
+                md:max-h-10 md:p-4
+                p-2
+                ml-5
+              "
+            >
+              <i class="fas fa-heart md:text-xl md:-mt-7"></i>
+            </div>
+          </div>
+        </div>
+        <div class="w-4/6 md:mt-5">
+          <h1 class="md:text-2xl font-bold">{{ Media.title.english }}</h1>
+          <div class="hidden md:block md:anime-detail__header__description">
+            <p v-html="getDescription(500)"></p>
+            <span
+              class="py-4 -mb-4 font-bold text-xl hover:text-red-500"
+              :class="isHide ? 'block' : 'hidden'"
+              @click="getFull"
+            >
+              Read more
+            </span>
+          </div>
         </div>
       </div>
-      <div class="w-5/6 mt-5">
-        <h1 class="text-2xl font-bold">{{ Media.title.english }}</h1>
-        <div class="anime-detail__header__description">
-          <p v-html="getDescription(500)"></p>
-          <span
-            class="py-4 -mb-4 font-bold text-xl hover:text-red-500"
-            :class="isHide ? 'block' : 'hidden'"
-            @click="getFull"
-          >
-            Read more
-          </span>
-        </div>
+      <div class="mt-5">
+        <ul class="flex justify-center md:text-xl">
+          <li>
+            <nuxt-link
+              :to="`/manga/${$route.params.id}`"
+              class="px-2 hover:text-red-500"
+            >
+              Overview
+            </nuxt-link>
+          </li>
+          <li>
+            <nuxt-link
+              :to="`/manga/${$route.params.id}/character`"
+              class="px-2 hover:text-red-500"
+            >
+              Character
+            </nuxt-link>
+          </li>
+          <li>
+            <nuxt-link
+              :to="`/manga/${$route.params.id}/watch`"
+              class="px-2 hover:text-red-500"
+            >
+              Watch
+            </nuxt-link>
+          </li>
+        </ul>
       </div>
-    </div>
-    <div class="mt-5">
-      <ul class="flex justify-center text-xl">
-        <li>
-          <nuxt-link
-            :to="`/manga/${$route.params.id}`"
-            class="px-2 hover:text-red-500"
-          >
-            Overview
-          </nuxt-link>
-        </li>
-        <li>
-          <nuxt-link
-            :to="`/manga/${$route.params.id}/character`"
-            class="px-2 hover:text-red-500"
-          >
-            Character
-          </nuxt-link>
-        </li>
-        <li>
-          <nuxt-link
-            :to="`/manga/${$route.params.id}/watch`"
-            class="px-2 hover:text-red-500"
-          >
-            Watch
-          </nuxt-link>
-        </li>
-      </ul>
     </div>
     <div class="min-h-[100px] bg-[#e5ebf1] p-12 flex">
-      <div class="w-2/6">
+      <div class="hidden md:w-2/6 md:block">
         <SideBarLeft />
       </div>
-      <div class="min-h-[100px] w-4/6 ml-7">
+      <div class="min-h-[100px] md:w-4/6 md:ml-7">
         <!-- character -->
         <nuxt-child
           :character="Media.characters.edges"

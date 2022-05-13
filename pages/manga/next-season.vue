@@ -1,20 +1,29 @@
 <template>
-  <div class="p-5">
-    <h1 class="text-2xl font-bold">NEXT SEASON - MANGA</h1>
-    <!-- form search -->
-    <div>form search here</div>
-    <!-- loading data -->
-    <div class="grid grid-cols-5 gap-5">
+  <div class="px-[50px] md:px-20 lg:px-[56px]">
+    <h1 class="text-2xl font-bold pt-12">NEXT SEASON - MANGA</h1>
+
+    <div>
+      <FilterManga />
+    </div>
+
+    <div
+      class="
+        grid grid-cols-2
+        gap-2
+        sm:grid-cols-3 sm:gap-x-3
+        md:grid-cols-5 md:gap-x-5
+      "
+    >
       <nuxt-link
         v-for="(trending, index) in pageData"
         :key="index"
         :to="`/manga/${trending.id}`"
-        class="text-center"
+        class="mt-5"
       >
         <img
           :src="trending.coverImage.large"
           alt="Trending"
-          class="w-[185px] h-[265px] rounded"
+          class="lg:h-[363px] md:h-[207px] w-full rounded"
         />
         <h1>{{ trending.title.english }}</h1>
       </nuxt-link>
@@ -23,8 +32,10 @@
 </template>
 
 <script>
+import FilterManga from "../../components/Search/FilterManga.vue";
 import { getNextSeasonManga } from "../../graphql/query/getNextSeason";
 export default {
+  components: { FilterManga },
   data() {
     return {
       page: 1,

@@ -5,6 +5,9 @@
 * {
     font-family:'Overpass', sans-serif;
 }
+html {
+    background-color: #e5ebf1;
+}
 
 .btn {
     @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;

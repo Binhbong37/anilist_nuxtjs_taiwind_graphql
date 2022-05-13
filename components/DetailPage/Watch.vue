@@ -11,12 +11,10 @@
               class="
                 watch__item__title
                 w-full
-                -mt-11
                 absolute
                 bottom-0
                 text-white text-left
                 opacity-70
-                p-4
                 overflow-ellipsis overflow-hidden
               "
             >
@@ -42,7 +40,6 @@ export default {
 
 <style scope>
 .watch__item-img {
-  width: 164px;
   height: 88px;
   background-position: 50%;
   background-repeat: no-repeat;
@@ -53,5 +50,6 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-height: 20%;
 }
 </style>
