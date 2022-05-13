@@ -19,7 +19,7 @@
           </div>
         </div>
 
-        <div class="flex justify-end">
+        <div v-if="data.voiceActors > 0" class="flex justify-end">
           <div class="text-[12px] p-2 flex flex-col justify-around">
             <h1>{{ data.voiceActors[0].name.userPreferred }}</h1>
             <p>{{ data.voiceActors[0].languageV2 }}</p>

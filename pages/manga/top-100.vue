@@ -23,23 +23,7 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
-const getTrending = gql`
-  query getTag($page: Int) {
-    Page(page: $page) {
-      media(type: MANGA, sort: SCORE_DESC) {
-        title {
-          english
-          native
-        }
-        coverImage {
-          large
-        }
-        id
-      }
-    }
-  }
-`;
+import { getTop100Manga } from "../../graphql/query/getTop100";
 export default {
   data() {
     return {
@@ -67,7 +51,7 @@ export default {
   async asyncData({ app }) {
     const client = app.apolloProvider.defaultClient;
     const res = await client.query({
-      query: getTrending,
+      query: getTop100Manga,
       variables() {
         return {
           page: this.page,

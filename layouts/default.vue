@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header />
-    <Nuxt class="bg-[#e5ebf1] mt-20" />
+    <Nuxt class="bg-[#e5ebf1] mt-20 w-full" />
     <Footer></Footer>
   </div>
 </template>

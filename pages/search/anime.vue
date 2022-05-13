@@ -2,29 +2,10 @@
   <div class="px-[50px] md:px-20 lg:px-[56px]">
     <!-- Form serach -->
     <div class="pt-12">
-      <form class="flex items-center">
-        <div class="mr-3" v-for="i in 3" :key="i">
-          <label class="block">Search {{ i }}</label>
-          <input
-            type="text"
-            name="Search"
-            id="Search"
-            class="border-2 rounded py-2 px-4"
-            placeholder="Search by name"
-          />
-        </div>
-        <div>
-          <label class="block">Genres</label>
-          <input
-            type="text"
-            name="Search"
-            id="Search"
-            class="border-2 rounded py-2 px-4"
-            placeholder="Any"
-          />
-        </div>
-      </form>
+      <h1>Form</h1>
+      <input type="text" v-model="search" />
     </div>
+
     <!-- Trending -->
     <div class="pt-12">
       <nuxt-link to="/anime/trending" class="flex justify-between">
@@ -93,59 +74,20 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
-const getPage = gql`
-  query getTag($page: Int) {
-    MediaTrend: Page(page: $page, perPage: 5) {
-      data: media(type: ANIME, sort: TRENDING_DESC) {
-        title {
-          english
-          native
-        }
-        coverImage {
-          large
-        }
-        id
-      }
-    }
-    mediaPopulation: Page(page: $page, perPage: 5) {
-      data: media(type: ANIME, sort: POPULARITY_DESC) {
-        id
-        coverImage {
-          large
-        }
-        title {
-          english
-          native
-        }
-      }
-    }
-    topMedia: Page(page: $page, perPage: 10) {
-      data: media(type: ANIME, sort: SCORE_DESC) {
-        id
-        genres
-        coverImage {
-          large
-        }
-        title {
-          english
-          native
-        }
-      }
-    }
-  }
-`;
+import { getPageAnime } from "../../graphql/query/getHomeAnilist";
 export default {
   data() {
     return {
       MediaTrend: [],
       mediaPopulation: [],
       topMedia: [],
+      search: "",
     };
   },
   apollo: {
     Page: {
-      query: getPage,
+      query: getPageAnime,
+      manual: true,
       variables: {
         page: 1,
       },
@@ -157,6 +99,12 @@ export default {
         }
       },
     },
+  },
+  updated() {
+    this.$router.push({
+      path: "/search/anime",
+      query: { search: this.search },
+    });
   },
 };
 </script>

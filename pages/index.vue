@@ -74,48 +74,8 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
-const getPage = gql`
-  query getTag($page: Int) {
-    MediaTrend: Page(page: $page, perPage: 5) {
-      data: media(sort: TRENDING_DESC) {
-        title {
-          english
-          native
-        }
-        coverImage {
-          large
-        }
-        id
-      }
-    }
-    mediaPopulation: Page(page: $page, perPage: 5) {
-      data: media(sort: POPULARITY_DESC) {
-        id
-        coverImage {
-          large
-        }
-        title {
-          english
-          native
-        }
-      }
-    }
-    topMedia: Page(page: $page, perPage: 5) {
-      data: media(sort: SCORE_DESC) {
-        id
-        genres
-        coverImage {
-          large
-        }
-        title {
-          english
-          native
-        }
-      }
-    }
-  }
-`;
+import { getPageAnime } from "../graphql/query/getHomeAnilist";
+
 export default {
   data() {
     return {
@@ -126,14 +86,13 @@ export default {
   },
   apollo: {
     media: {
-      query: getPage,
+      query: getPageAnime,
+      manual: true,
       variables: {
         page: 1,
       },
       result({ data, loading }) {
-        console.log(loading);
         if (!loading) {
-          console.log(data);
           this.MediaTrend = data.MediaTrend.data;
           this.mediaPopulation = data.mediaPopulation.data;
           this.topMedia = data.topMedia.data;

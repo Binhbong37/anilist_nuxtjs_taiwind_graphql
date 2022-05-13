@@ -14,20 +14,20 @@
         :MediaList="mediaPopulars"
         title="UPCOMING NEXT SEASON"
       />
-      <PostList :hoz="true" :MediaList="topAnime" title="Top anime" />
+      <PostList :hoz="true" :MediaList="topAnime" title="Top 100 Anime" />
     </div>
   </div>
 </template>
 <script>
 import gql from "graphql-tag";
 const mediaQuery = gql`
-  query tags($page: Int) {
-    mediaTrends: Page(page: $page, perPage: 6) {
+  query ($page: Int) {
+    mediaTrends: Page(page: $page, perPage: 5) {
       data: media(sort: TRENDING_DESC) {
         ...comparisonFields
       }
     }
-    mediaPopulars: Page(page: $page, perPage: 6) {
+    mediaPopulars: Page(page: $page, perPage: 5) {
       data: media(sort: POPULARITY_DESC) {
         ...comparisonFields
       }
@@ -97,11 +97,9 @@ export default {
   apollo: {
     media: {
       query: mediaQuery,
-      loadingKey: "loading",
       manual: true,
       result({ data, loading }) {
         if (!loading) {
-          console.log(data.mediaTrends.data);
           this.mediaTrends = data.mediaTrends.data;
           this.mediaPopulars = data.mediaPopulars.data;
           this.topAnime = data.topAnime.data;

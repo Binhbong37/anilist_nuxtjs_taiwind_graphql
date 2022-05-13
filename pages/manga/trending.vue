@@ -16,31 +16,16 @@
           alt="Trending"
           class="w-[185px] h-[265px] rounded"
         />
-        <h1>{{ trending.title.english || trending.title.romaji }}</h1>
+        <h1 class="text-left">
+          {{ trending.title.english || trending.title.romaji }}
+        </h1>
       </nuxt-link>
     </div>
   </div>
 </template>
 
 <script>
-import gql from "graphql-tag";
-const getTrending = gql`
-  query getTag($page: Int) {
-    Page(page: $page) {
-      media(type: MANGA, sort: TRENDING) {
-        title {
-          english
-          native
-          romaji
-        }
-        coverImage {
-          large
-        }
-        id
-      }
-    }
-  }
-`;
+import { getTrendingManga } from "../../graphql/query/getTrending";
 export default {
   data() {
     return {
@@ -67,7 +52,7 @@ export default {
   async asyncData({ app }) {
     const client = app.apolloProvider.defaultClient;
     const res = await client.query({
-      query: getTrending,
+      query: getTrendingManga,
       variables() {
         return {
           page: this.page,

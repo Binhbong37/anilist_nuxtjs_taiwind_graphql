@@ -3,16 +3,6 @@
     <!-- Form serach -->
     <div class="pt-12">
       <form class="flex items-center">
-        <div class="mr-3" v-for="i in 3" :key="i">
-          <label class="block">Search {{ i }}</label>
-          <input
-            type="text"
-            name="Search"
-            id="Search"
-            class="border-2 rounded py-2 px-4"
-            placeholder="Search by name"
-          />
-        </div>
         <div>
           <label class="block">Genres</label>
           <input
@@ -28,7 +18,7 @@
     <!-- Trending -->
     <div class="pt-12">
       <nuxt-link to="/manga/trending" class="flex justify-between">
-        <h1 class="hover:text-red-500 cursor-pointer text-[#404e5c]">
+        <h1 class="hover:text-red-500 font-bold cursor-pointer text-[#404e5c]">
           TRENDING NOW
         </h1>
         <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
@@ -60,7 +50,7 @@
           </nuxt-link>
           <div class="pt-4">
             <nuxt-link :to="`/manga/${top.id}`" class="hover:text-red-500">{{
-              top.title.english
+              top.title.english || top.title.native
             }}</nuxt-link>
 
             <div>
@@ -91,48 +81,8 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
-const getPage = gql`
-  query getTag($page: Int) {
-    MediaTrend: Page(page: $page, perPage: 5) {
-      data: media(type: MANGA, sort: TRENDING_DESC) {
-        title {
-          english
-          native
-        }
-        coverImage {
-          large
-        }
-        id
-      }
-    }
-    mediaPopulation: Page(page: $page, perPage: 5) {
-      data: media(type: MANGA, sort: POPULARITY_DESC) {
-        id
-        coverImage {
-          large
-        }
-        title {
-          english
-          native
-        }
-      }
-    }
-    topMedia: Page(page: $page, perPage: 10) {
-      data: media(type: MANGA, sort: SCORE_DESC) {
-        id
-        genres
-        coverImage {
-          large
-        }
-        title {
-          english
-          native
-        }
-      }
-    }
-  }
-`;
+import { getPageManga } from "../../graphql/query/getHomeAnilist";
+
 export default {
   data() {
     return {
@@ -143,7 +93,8 @@ export default {
   },
   apollo: {
     Page: {
-      query: getPage,
+      query: getPageManga,
+      manual: true,
       variables: {
         page: 1,
       },

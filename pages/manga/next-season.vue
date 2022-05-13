@@ -23,23 +23,7 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
-const getTrending = gql`
-  query getTag($page: Int) {
-    Page(page: $page) {
-      media(type: MANGA, sort: POPULARITY_DESC) {
-        title {
-          english
-          native
-        }
-        coverImage {
-          large
-        }
-        id
-      }
-    }
-  }
-`;
+import { getNextSeasonManga } from "../../graphql/query/getNextSeason";
 export default {
   data() {
     return {
@@ -66,7 +50,7 @@ export default {
   async asyncData({ app }) {
     const client = app.apolloProvider.defaultClient;
     const res = await client.query({
-      query: getTrending,
+      query: getNextSeasonManga,
       variables() {
         return {
           page: this.page,

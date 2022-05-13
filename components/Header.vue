@@ -136,7 +136,6 @@ export default {
         document.querySelector("#header").classList.add("hide");
       } else {
         if (document.querySelector("#anime-detail") != null) {
-          console.log("Detail");
           if (document.querySelector("html,body").scrollTop <= 200) {
             document.querySelector("#header").classList.add("fade");
           } else {

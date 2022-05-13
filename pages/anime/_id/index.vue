@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img :src="Media.bannerImage" alt="banner" />
+    <img :src="Media.bannerImage" alt="banner" class="w-full" />
     <div class="px-12 flex">
       <div class="w-2/6">
         <img
@@ -78,11 +78,10 @@
 
 <script>
 import SideBarLeft from "../../../components/DetailPage/SideBarLeft.vue";
-import Character from "../../../components/DetailPage/Character.vue";
 
 export default {
   layout: "detail",
-  components: { SideBarLeft, Character },
+  components: { SideBarLeft },
   async asyncData({ app, params }) {
     const client = app.apolloProvider.defaultClient;
     const { id } = params;

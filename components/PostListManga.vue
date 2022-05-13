@@ -1,11 +1,6 @@
 <template>
   <div
-    class="
-      grid grid-cols-2
-      gap-4
-      sm:grid-cols-3 sm:gap-x-3
-      md:grid-cols-5 md:gap-x-5
-    "
+    class="grid grid-cols-2 sm:grid-cols-3 sm:gap-x-3 md:grid-cols-5 md:gap-x-5"
   >
     <nuxt-link
       v-for="trend in MediaTrend"
@@ -16,9 +11,9 @@
       <img
         :src="trend.coverImage.large"
         alt="Image"
-        class="rounded my-0 mx-auto w-[185px] h-[265px]"
+        class="rounded lg:h-[363px] md:h-[207px] w-full"
       />
-      <h1 class="h-">{{ trend.title.english }}</h1>
+      <h1 class="text-left">{{ trend.title.english }}</h1>
     </nuxt-link>
   </div>
 </template>
