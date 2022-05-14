@@ -8,12 +8,13 @@
           name="search"
           class="rounded px-2 outline-0"
           placeholder="Search . . ."
+          v-model="search"
         />
       </div>
       <div class="bg-white py-2 px-3 rounded hidden md:inline-block md:mr-5">
         <input
           type="text"
-          name="search"
+          name="genres"
           class="rounded px-2 outline-0"
           placeholder="Genres"
           readonly
@@ -33,7 +34,7 @@
       >
         <input
           type="text"
-          name="search"
+          name="year"
           class="rounded px-2 outline-0"
           placeholder="Year"
           readonly
@@ -53,14 +54,16 @@
       >
         <input
           type="text"
-          name="search"
+          name="format"
           class="rounded px-2 outline-0"
           placeholder="Format"
           readonly
         />
         <i class="fas fa-caret-down"></i>
       </div>
-      <button class="btn md:ml-3 mt-3">Search</button>
+      <button @click.prevent="handleSearch" class="btn md:ml-3 mt-3">
+        Search
+      </button>
     </form>
   </div>
 </template>
@@ -73,6 +76,12 @@ export default {
     return {
       search: "",
     };
+  },
+  methods: {
+    handleSearch() {
+      console.log(this.search);
+      this.search = "";
+    },
   },
 };
 </script>

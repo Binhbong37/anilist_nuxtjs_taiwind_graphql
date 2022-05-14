@@ -7,14 +7,23 @@
         type="text"
         name="search"
         class="border-2 rounded py-2 px-4"
-        placeholder="Any"
+        placeholder="search when click"
         v-model="search"
       />
       <button @click.prevent="takeSearchInput" class="btn">click</button>
     </form>
+    <div>
+      <input
+        type="text"
+        name="search"
+        class="border-2 rounded py-2 px-4"
+        placeholder="search when type"
+        v-model="fastSearch"
+      />
+    </div>
     <div class="grid grid-cols-5 gap-5">
       <nuxt-link
-        v-for="(trend, idex) in pageData"
+        v-for="(trend, idex) in filterPosts"
         :key="idex"
         :to="`anime/${trend.id}`"
       >
@@ -51,6 +60,7 @@ export default {
       page: 1,
       pageData: [],
       search: "",
+      fastSearch: "",
     };
   },
   apollo: {
@@ -92,6 +102,15 @@ export default {
       }
     },
   },
+  computed: {
+    filterPosts() {
+      return this.pageData.filter((render) => {
+        const valid = render.title.english.toLowerCase();
+        return valid.includes(this.fastSearch);
+      });
+    },
+  },
+
   mounted() {
     this.pageData = this.Page.media;
     window.addEventListener("scroll", this.handleScroll);

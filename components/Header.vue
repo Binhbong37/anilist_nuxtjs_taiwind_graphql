@@ -47,12 +47,21 @@
             :class="!click ? 'top-[100px] opacity-100' : ''"
           >
             <ul class="md:flex">
-              <li @click="handleClose" class="px-4">
+              <li
+                @click="handleClose"
+                @mouseover="showModal"
+                @mouseleave="hideModal"
+                class="px-4 relative"
+              >
                 <a
                   href="/search/anime"
                   class="block border-b md:border-0 md:p-0 text"
                   >Browse</a
                 >
+                <ul v-if="show" class="modal">
+                  <li><nuxt-link to="/search/anime">Anime</nuxt-link></li>
+                  <li><nuxt-link to="/search/manga">Manga</nuxt-link></li>
+                </ul>
               </li>
               <li @click="handleClose" class="px-4">
                 <a href="#" class="block py-2 border-b md:border-0 md:p-0 text"
@@ -124,6 +133,7 @@ export default {
     return {
       click: true,
       dropdown: false,
+      show: false,
     };
   },
   methods: {
@@ -132,6 +142,12 @@ export default {
     },
     handleClose() {
       this.click = true;
+    },
+    showModal() {
+      this.show = true;
+    },
+    hideModal() {
+      this.show = false;
     },
   },
   mounted() {
@@ -189,5 +205,25 @@ nav {
   box-shadow: 0 2px 10px rgb(8 150 230 / 60%);
   transform: scale(1.03);
   color: white;
+}
+
+.modal {
+  position: absolute;
+  top: 3;
+
+  background-color: white;
+  transition: all 0.5s ease-in;
+
+  width: 200px;
+  height: 150px;
+  border-radius: 5px;
+}
+.modal li {
+  margin-left: 20px;
+  cursor: pointer;
+  font-size: 17px;
+}
+.modal li:hover {
+  color: brown;
 }
 </style>
