@@ -1,10 +1,71 @@
 <template>
   <div class="px-[50px] md:px-20 lg:px-[56px]">
     <div class="pt-12">
-      <Search />
+      <form>
+        <div class="bg-white py-2 px-3 rounded inline-block mr-5">
+          <i class="fas fa-search"></i>
+          <input
+            type="text"
+            name="search"
+            class="rounded px-2 outline-0"
+            placeholder="Search . . ."
+            v-model="search"
+            @keypress="handleKey"
+          />
+        </div>
+        <div class="bg-white py-2 px-3 rounded hidden md:inline-block md:mr-5">
+          <input
+            type="text"
+            name="genres"
+            class="rounded px-2 outline-0"
+            placeholder="Genres"
+            readonly
+          />
+          <i class="fas fa-caret-down"></i>
+        </div>
+        <div
+          class="
+            bg-white
+            py-2
+            px-3
+            rounded
+            hidden
+            lg:mt-5
+            md:inline-block md:mr-5
+          "
+        >
+          <input
+            type="text"
+            name="year"
+            class="rounded px-2 outline-0"
+            placeholder="Year"
+            readonly
+          />
+          <i class="fas fa-caret-down"></i>
+        </div>
+        <div
+          class="
+            bg-white
+            py-2
+            px-3
+            lg:mt-5
+            rounded
+            hidden
+            md:inline-block md:mr-5
+          "
+        >
+          <input
+            type="text"
+            name="format"
+            class="rounded px-2 outline-0"
+            placeholder="Format"
+            readonly
+          />
+          <i class="fas fa-caret-down"></i>
+        </div>
+      </form>
     </div>
-
-    <div>
+    <div v-if="isQuery">
       <div class="pt-12">
         <nuxt-link to="/anime/trending" class="flex justify-between">
           <h1 class="hover:text-red-500 cursor-pointer text-[#404e5c]">
@@ -73,20 +134,24 @@
         </div>
       </div>
     </div>
+    <div v-if="!isQuery">
+      <GetAllAnime :allAnime="filterAllAnime" />
+    </div>
   </div>
 </template>
 
 <script>
-import Search from "../../components/Search.vue";
 import { getPageAnime } from "../../graphql/query/getHomeAnilist";
 export default {
-  components: { Search },
   data() {
     return {
+      filterAllAnime: [],
       MediaTrend: [],
+      allAnime: [],
       mediaPopulation: [],
       topMedia: [],
       search: "",
+      page: 1,
       isQuery: true,
     };
   },
@@ -94,16 +159,41 @@ export default {
     Page: {
       query: getPageAnime,
       manual: true,
-      variables: {
-        page: 1,
+      variables() {
+        return {
+          page: this.page,
+        };
       },
       result({ data, loading }) {
         if (!loading) {
           this.MediaTrend = data.MediaTrend.data;
           this.mediaPopulation = data.mediaPopulation.data;
           this.topMedia = data.topMedia.data;
+          this.allAnime = data.getAllAnime.data;
         }
       },
+    },
+  },
+  methods: {
+    handleKey() {
+      this.isQuery = false;
+    },
+  },
+  watch: {
+    search() {
+      if (!this.search) {
+        this.$router.push({ path: "/search/anime" });
+        this.$router.reload();
+      } else {
+        this.$router.push({
+          path: "/search/anime",
+          query: { search: this.search },
+        });
+        this.filterAllAnime = this.allAnime.filter((all) => {
+          const titleCondi = all.title.english || all.title.native;
+          return titleCondi.includes(this.search);
+        });
+      }
     },
   },
 };

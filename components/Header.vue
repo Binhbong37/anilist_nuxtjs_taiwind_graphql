@@ -13,7 +13,7 @@
       "
     >
       <div class="flex justify-between">
-        <div>
+        <div class="md:pl-[70px]">
           <nuxt-link @click="handleClose" to="/" class="text-center text-white">
             <img
               src="https://anilist.co/img/icons/icon.svg"
@@ -106,7 +106,7 @@
                     mr-40
                   "
                 >
-                  Sign Up
+                  SignUp
                 </a>
               </li>
             </ul>

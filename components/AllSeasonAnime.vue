@@ -4,13 +4,16 @@
       <h1 class="text-2xl font-bold pt-12">TRENDING - ANIME</h1>
 
       <div class="flex justify-between">
-        <input
-          type="text"
-          name="search"
-          class="border-2 rounded py-2 px-4"
-          placeholder="Search . . ."
-          v-model="valueInputSearch"
-        />
+        <div class="bg-white py-3 px-3 rounded inline-block mr-5">
+          <i class="fas fa-search text-slate-400"></i>
+          <input
+            type="text"
+            name="search"
+            class="rounded px-2 outline-0"
+            placeholder="Search . . ."
+            v-model="valueInputSearch"
+          />
+        </div>
         <div class="py-2 px-4 text-2xl hover:text-red-500 cursor-pointer">
           <i class="fas fa-sort"></i>
         </div>
@@ -28,7 +31,14 @@
           v-for="(trending, index) in seasonFilter"
           :key="index"
           :to="`/anime/${trending.id}`"
-          class="mt-5"
+          class="
+            mt-5
+            transform
+            hover:scale-105
+            transition
+            ease-in-out
+            duration-500
+          "
         >
           <img
             :src="trending.coverImage.large"

@@ -7,7 +7,7 @@
           <img
             :src="Media.coverImage.large"
             alt="imageLarge"
-            class="rounded -mt-14 md:-mt-24 mb-5 md:w-3/4"
+            class="rounded -mt-20 md:-mt-24 mb-5 md:w-3/4"
           />
           <div class="flex mt-5">
             <div>
@@ -18,8 +18,9 @@
                   rounded
                   text-white
                   min-w-[150px]
-                  md:min-w-[200px] md:py-2
+                  lg:min-w-[200px] lg:py-2
                   ml-5
+                  md:m-0
                 "
               >
                 Add to List
@@ -31,7 +32,7 @@
                 text-white
                 rounded
                 max-h-8
-                md:max-h-10 md:p-4
+                lg:max-h-10 lg:p-4
                 p-2
                 ml-5
               "

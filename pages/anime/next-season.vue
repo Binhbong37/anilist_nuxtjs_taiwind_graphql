@@ -1,5 +1,5 @@
 <template>
-  <AllSeasonAime :season="pageData" />
+  <AllSeasonAnime :season="pageData" />
 </template>
 
 <script>

@@ -11,7 +11,15 @@
       v-for="trend in MediaTrend"
       :key="trend.id"
       :to="`/anime/${trend.id}`"
-      class="hover:text-red-500 text-center"
+      class="
+        hover:text-red-500
+        text-center
+        transform
+        hover:scale-105
+        transition
+        ease-in-out
+        duration-500
+      "
     >
       <img
         :src="trend.coverImage.large"

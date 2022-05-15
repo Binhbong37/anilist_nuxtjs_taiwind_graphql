@@ -1,6 +1,5 @@
 <template>
   <div class="px-[50px] md:px-20 lg:px-[56px]">
-    <!-- TRENDING  -->
     <div class="pt-12">
       <nuxt-link to="/anime/trending" class="flex justify-between">
         <h1 class="hover:text-red-500 cursor-pointer text-[#404e5c]">

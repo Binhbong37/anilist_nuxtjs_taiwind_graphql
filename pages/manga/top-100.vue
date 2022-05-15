@@ -3,10 +3,8 @@
 </template>
 
 <script>
-import FilterManga from "../../components/Search/FilterManga.vue";
 import { getTop100Manga } from "../../graphql/query/getTop100";
 export default {
-  components: { FilterManga },
   data() {
     return {
       page: 1,

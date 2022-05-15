@@ -2,7 +2,19 @@ import gql from "graphql-tag";
 
 export const getPageAnime = gql`
   query ($page: Int) {
-    MediaTrend: Page(page: $page, perPage: 5) {
+    getAllAnime: Page(page: $page) {
+      data: media(type: ANIME) {
+        title {
+          english
+          native
+        }
+        coverImage {
+          large
+        }
+        id
+      }
+    }
+    MediaTrend: Page(perPage: 5) {
       data: media(sort: TRENDING_DESC, type: ANIME) {
         title {
           english
@@ -14,7 +26,7 @@ export const getPageAnime = gql`
         id
       }
     }
-    mediaPopulation: Page(page: $page, perPage: 5) {
+    mediaPopulation: Page(perPage: 5) {
       data: media(sort: POPULARITY_DESC, type: ANIME) {
         id
         coverImage {
@@ -26,7 +38,7 @@ export const getPageAnime = gql`
         }
       }
     }
-    topMedia: Page(page: $page, perPage: 5) {
+    topMedia: Page(perPage: 5) {
       data: media(sort: SCORE_DESC, type: ANIME) {
         id
         genres
@@ -43,6 +55,18 @@ export const getPageAnime = gql`
 `;
 export const getPageManga = gql`
   query ($page: Int) {
+    getAllManga: Page(page: $page) {
+      data: media(type: MANGA) {
+        title {
+          english
+          native
+        }
+        coverImage {
+          large
+        }
+        id
+      }
+    }
     MediaTrend: Page(page: $page, perPage: 5) {
       data: media(sort: TRENDING_DESC, type: MANGA) {
         title {
