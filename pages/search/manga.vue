@@ -183,7 +183,7 @@ export default {
     search() {
       if (!this.search) {
         this.$router.push({ path: "/search/manga" });
-        this.$router.reload();
+        this.$router.go();
       } else {
         this.$router.push({
           path: "/search/manga",
