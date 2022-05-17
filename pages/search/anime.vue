@@ -151,6 +151,7 @@ export default {
       mediaPopulation: [],
       topMedia: [],
       search: "",
+      sort: this.$route.query.sort || "",
       page: 1,
       isQuery: true,
     };
@@ -162,6 +163,7 @@ export default {
       variables() {
         return {
           page: this.page,
+          sort: this.sort || "TRENDING_DESC",
         };
       },
       result({ data, loading }) {
@@ -195,6 +197,17 @@ export default {
         });
       }
     },
+  },
+
+  mounted() {
+    if (this.sort !== "") {
+      this.isQuery = false;
+      if (this.allAnime.length <= 0) {
+        window.location.reload();
+      } else {
+        this.filterAllAnime = this.allAnime;
+      }
+    }
   },
 };
 </script>

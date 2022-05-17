@@ -1,9 +1,9 @@
 import gql from "graphql-tag";
 
 export const getPageAnime = gql`
-  query ($page: Int) {
+  query ($page: Int, $sort: [MediaSort]) {
     getAllAnime: Page(page: $page) {
-      data: media(type: ANIME) {
+      data: media(type: ANIME, sort: $sort) {
         title {
           english
           native
@@ -54,9 +54,9 @@ export const getPageAnime = gql`
   }
 `;
 export const getPageManga = gql`
-  query ($page: Int) {
+  query ($page: Int, $sort: [MediaSort]) {
     getAllManga: Page(page: $page) {
-      data: media(type: MANGA) {
+      data: media(type: MANGA, sort: $sort) {
         title {
           english
           native

@@ -14,8 +14,63 @@
             v-model="valueInputSearch"
           />
         </div>
-        <div class="py-2 px-4 text-2xl hover:text-red-500 cursor-pointer">
+        <div
+          class="relative py-2 px-4 cursor-pointer"
+          @click="handleShowModal"
+          @mouseleave="hideModal"
+        >
           <i class="fas fa-sort"></i>
+          <span>{{ sortValue }}</span>
+          <ul v-if="showModal" class="bgConfig">
+            <li class="item">
+              <label for="trending" @click="handleAddRoute('TRENDING_DESC')"
+                >Trending</label
+              >
+              <input
+                id="trending"
+                type="radio"
+                v-model="sortValue"
+                value="Trending"
+                class="hidden"
+              />
+            </li>
+            <li class="item">
+              <label for="popularity" @click="handleAddRoute('POPULARITY_DESC')"
+                >Popularity</label
+              >
+              <input
+                id="popularity"
+                type="radio"
+                v-model="sortValue"
+                value="Popularity"
+                class="hidden"
+              />
+            </li>
+            <li class="item">
+              <label for="title" @click="handleAddRoute('TITLE_ROMAJI')"
+                >Title</label
+              >
+              <input
+                id="title"
+                type="radio"
+                v-model="sortValue"
+                value="Title"
+                class="hidden"
+              />
+            </li>
+            <li class="item">
+              <label for="favorite" @click="handleAddRoute('FAVOURITES_DESC')"
+                >Favorites</label
+              >
+              <input
+                id="favorite"
+                type="radio"
+                v-model="sortValue"
+                value="Favorites"
+                class="hidden"
+              />
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -62,7 +117,24 @@ export default {
   data() {
     return {
       valueInputSearch: "",
+      showModal: false,
+      sortValue: "Trending",
     };
+  },
+  methods: {
+    handleShowModal() {
+      this.showModal = true;
+    },
+    hideModal() {
+      this.showModal = false;
+    },
+
+    handleAddRoute(route) {
+      this.$router.push({
+        path: "/search/manga",
+        query: { sort: route },
+      });
+    },
   },
   computed: {
     seasonFilter() {
@@ -81,5 +153,21 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
+.bgConfig {
+  background: white;
+  width: 150px;
+  position: absolute;
+  z-index: 10;
+  right: -20px;
+  border-radius: 5px;
+}
+.item {
+  margin-left: 12px;
+  padding: 10px;
+}
+.item label:hover {
+  color: rgb(70, 186, 186);
+  cursor: pointer;
+}
 </style>
