@@ -1,10 +1,11 @@
 <template>
   <div
     class="
-      grid grid-cols-2
-      gap-2
-      sm:grid-cols-3 sm:gap-x-3
-      md:grid-cols-5 md:gap-x-5
+      grid
+      lg:grid-cols-5 lg:gap-[39px]
+      md:grid-cols-5 md:gap-[21px]
+      grid-cols-3
+      gap-[12px]
     "
   >
     <nuxt-link
@@ -16,9 +17,9 @@
       <img
         :src="trending.coverImage.large"
         alt="Trending"
-        class="lg:h-[363px] md:h-[207px] w-full rounded"
+        class="rounded w-[138px] h-[160px] lg:w-full lg:h-[265px] md:h-[190px]"
       />
-      <h1>{{ trending.title.english || trending.title.romaji }}</h1>
+      <h1>{{ trending.title.userPreferred }}</h1>
     </nuxt-link>
   </div>
 </template>

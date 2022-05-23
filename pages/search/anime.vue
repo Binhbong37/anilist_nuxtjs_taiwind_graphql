@@ -1,5 +1,5 @@
 <template>
-  <div class="px-[50px] md:px-20 lg:px-[56px]">
+  <div class="px-[10px] md:px-5 lg:px-[135px]">
     <div class="pt-12">
       <form>
         <div class="bg-white py-2 px-3 rounded inline-block mr-5">
@@ -48,10 +48,9 @@
             bg-white
             py-2
             px-3
-            lg:mt-5
             rounded
             hidden
-            md:inline-block md:mr-5
+            md:inline-block md:mr-5 md:mt-5
           "
         >
           <input
@@ -67,31 +66,72 @@
     </div>
     <div v-if="isQuery">
       <div class="pt-12">
-        <nuxt-link to="/anime/trending" class="flex justify-between">
+        <nuxt-link to="/anime/trending" class="flex justify-between mb-3">
           <h1 class="hover:text-red-500 cursor-pointer text-[#404e5c]">
             TRENDING NOW
           </h1>
           <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
         </nuxt-link>
-        <PostListAnime :MediaTrend="MediaTrend" />
+        <div
+          class="
+            grid
+            lg:grid-cols-5 lg:gap-[39px]
+            md:grid-cols-5 md:gap-[21px]
+            grid-cols-3
+            gap-[12px]
+          "
+        >
+          <PostListAnime
+            v-for="(media, index) in MediaTrend"
+            :id="media.id"
+            :key="index"
+            :thumbnail="media.coverImage.large"
+            :title="media.title.english"
+          />
+        </div>
       </div>
 
       <div class="pt-12">
-        <nuxt-link to="/anime/next-season" class="flex justify-between">
+        <nuxt-link to="/anime/next-season" class="flex justify-between mb-3">
           <h1 class="hover:text-red-500 cursor-pointer text-[#404e5c]">
             NEXT-SEASON
           </h1>
           <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
         </nuxt-link>
-        <PostListAnime :MediaTrend="mediaPopulation" />
+        <div
+          class="
+            grid
+            lg:grid-cols-5 lg:gap-[39px]
+            md:grid-cols-5 md:gap-[21px]
+            grid-cols-3
+            gap-[12px]
+          "
+        >
+          <PostListAnime
+            v-for="(media, index) in mediaPopulation"
+            :id="media.id"
+            :key="index"
+            :thumbnail="media.coverImage.large"
+            :title="media.title.english"
+          />
+        </div>
       </div>
 
       <div class="mt-12 pb-12">
-        <nuxt-link to="/anime/top-100" class="flex justify-between">
+        <nuxt-link to="/anime/top-100" class="flex justify-between mb-3">
           <h1 class="hover:text-red-500">TOP-100</h1>
           <h1 class="hover:text-red-500">View All</h1>
         </nuxt-link>
-        <PostListAnime class="md:hidden" :MediaTrend="topMedia" />
+        <div class="grid md:grid-cols-5 md:gap-[21px] grid-cols-3 gap-[12px]">
+          <PostListAnime
+            class="md:hidden"
+            v-for="(media, index) in topMedia"
+            :id="media.id"
+            :key="index"
+            :thumbnail="media.coverImage.large"
+            :title="media.title.english"
+          />
+        </div>
         <div
           v-for="(top, index) in topMedia"
           :key="top.id"

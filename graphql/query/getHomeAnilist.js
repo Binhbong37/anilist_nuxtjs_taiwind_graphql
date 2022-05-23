@@ -7,6 +7,7 @@ export const getPageAnime = gql`
         title {
           english
           native
+          userPreferred
         }
         coverImage {
           large
@@ -19,6 +20,7 @@ export const getPageAnime = gql`
         title {
           english
           native
+          userPreferred
         }
         coverImage {
           large
@@ -35,6 +37,7 @@ export const getPageAnime = gql`
         title {
           english
           native
+          userPreferred
         }
       }
     }
@@ -48,6 +51,7 @@ export const getPageAnime = gql`
         title {
           english
           native
+          userPreferred
         }
       }
     }
@@ -60,6 +64,7 @@ export const getPageManga = gql`
         title {
           english
           native
+          userPreferred
         }
         coverImage {
           large
@@ -72,6 +77,7 @@ export const getPageManga = gql`
         title {
           english
           native
+          userPreferred
         }
         coverImage {
           large
@@ -88,6 +94,7 @@ export const getPageManga = gql`
         title {
           english
           native
+          userPreferred
         }
       }
     }
@@ -101,6 +108,7 @@ export const getPageManga = gql`
         title {
           english
           native
+          userPreferred
         }
       }
     }

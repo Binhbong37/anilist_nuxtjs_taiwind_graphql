@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="px-[50px] md:px-20 lg:px-[56px]">
-      <h1 class="text-2xl font-bold pt-12">TRENDING - ANIME</h1>
+    <div class="px-[10px] md:px-5 lg:px-[135px]">
+      <h1 class="text-2xl font-bold pt-12 mb-5">{{ title }}</h1>
 
       <div class="flex justify-between">
-        <div class="bg-white py-3 px-3 rounded inline-block mr-5">
+        <div class="bg-white p-3 rounded inline-block mr-5">
           <i class="fas fa-search text-slate-400"></i>
           <input
             type="text"
@@ -74,10 +74,11 @@
 
       <div
         class="
-          grid grid-cols-2
-          gap-2
-          sm:grid-cols-3 sm:gap-x-3
-          md:grid-cols-5 md:gap-x-5
+          grid
+          lg:grid-cols-5 lg:gap-[39px]
+          md:grid-cols-5 md:gap-[21px]
+          grid-cols-3
+          gap-[12px]
         "
       >
         <nuxt-link
@@ -96,9 +97,17 @@
           <img
             :src="trending.coverImage.large"
             alt="Trending"
-            class="lg:h-[363px] md:h-[207px] w-full rounded"
+            class="
+              rounded
+              w-[138px]
+              h-[160px]
+              lg:w-full lg:h-[265px]
+              md:h-[190px]
+            "
           />
-          <h1>{{ trending.title.english || trending.title.romaji }}</h1>
+          <h1 class="anime-title mt-2">
+            {{ trending.title.english || trending.title.romaji }}
+          </h1>
         </nuxt-link>
       </div>
     </div>
@@ -110,6 +119,10 @@ export default {
   props: {
     season: {
       type: Array,
+    },
+    title: {
+      type: String,
+      required: true,
     },
   },
   data() {
@@ -167,5 +180,14 @@ export default {
 .item label:hover {
   color: rgb(70, 186, 186);
   cursor: pointer;
+}
+
+.anime-title {
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 </style>

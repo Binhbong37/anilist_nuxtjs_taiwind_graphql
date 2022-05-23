@@ -1,5 +1,5 @@
 <template>
-  <AllSeasonAnime :season="pageData" />
+  <AllSeasonAnime :season="pageData" :title="'TOP-100 ANIME'" />
 </template>
 
 <script>

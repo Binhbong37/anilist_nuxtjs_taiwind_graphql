@@ -1,48 +1,45 @@
 <template>
-  <div
-    class="
-      grid grid-cols-2
-      gap-4
-      sm:grid-cols-3 sm:gap-x-3
-      md:grid-cols-5 md:gap-x-5
-    "
-  >
-    <nuxt-link
-      v-for="trend in MediaTrend"
-      :key="trend.id"
-      :to="`/anime/${trend.id}`"
-      class="
-        hover:text-red-500
-        text-center
-        transform
-        hover:scale-105
-        transition
-        ease-in-out
-        duration-500
-      "
-    >
-      <img
-        :src="trend.coverImage.large"
-        alt="Image"
-        class="rounded lg:h-[363px] md:h-[207px] w-full"
-      />
-      <h1 class="text-left">{{ trend.title.english }}</h1>
-    </nuxt-link>
-  </div>
+  <nuxt-link :to="`/anime/${id}`">
+    <img
+      :src="thumbnail"
+      alt="Image"
+      class="rounded w-[138px] h-[160px] lg:w-full lg:h-[265px] md:h-[190px]"
+    />
+    <h1 class="anime-title text-sm mt-2">{{ title }}</h1>
+  </nuxt-link>
 </template>
 
 <script>
 export default {
-  props: {
-    MediaTrend: {
-      type: Array,
-    },
-  },
   data() {
-    return {};
+    return {
+      isShowDetailModal: true,
+    };
+  },
+  props: {
+    id: {
+      type: Number,
+      required: true,
+    },
+    thumbnail: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>
 
-<style>
+<style scope>
+.anime-title {
+  line-height: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
 </style>

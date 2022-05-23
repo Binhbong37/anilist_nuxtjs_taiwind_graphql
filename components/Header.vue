@@ -77,7 +77,7 @@
             <ul class="hidden md:flex">
               <li>
                 <a
-                  href="#"
+                  href="/contact"
                   class="
                     space-x-10
                     mr-5
