@@ -1,6 +1,6 @@
 <template>
-  <div class="px-[50px] md:px-20 lg:px-[56px]">
-    <div class="pt-12">
+  <div class="px-[10px] md:px-5 lg:px-[135px]">
+    <div class="pt-12 mb-10">
       <form>
         <div class="bg-white py-2 px-3 rounded inline-block mr-5">
           <i class="fas fa-search"></i>
@@ -30,8 +30,7 @@
             px-3
             rounded
             hidden
-            lg:mt-5
-            md:inline-block md:mr-5
+            md:mt-5 md:inline-block md:mr-5
           "
         >
           <input
@@ -48,7 +47,7 @@
             bg-white
             py-2
             px-3
-            lg:mt-5
+            md:mt-5
             rounded
             hidden
             md:inline-block md:mr-5
@@ -67,31 +66,72 @@
     </div>
     <div v-if="isQuery">
       <div class="pt-12">
-        <nuxt-link to="/manga/trending" class="flex justify-between">
+        <nuxt-link to="/manga/trending" class="flex justify-between mb-3">
           <h1 class="hover:text-red-500 cursor-pointer text-[#404e5c]">
             TRENDING NOW
           </h1>
           <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
         </nuxt-link>
-        <PostListManga :MediaTrend="MediaTrend" />
+        <div
+          class="
+            grid
+            lg:grid-cols-5 lg:gap-[39px]
+            md:grid-cols-5 md:gap-[21px]
+            grid-cols-3
+            gap-[12px]
+          "
+        >
+          <PostListManga
+            v-for="(media, index) in MediaTrend"
+            :id="media.id"
+            :key="index"
+            :thumbnail="media.coverImage.large"
+            :title="media.title.userPreferred"
+          />
+        </div>
       </div>
 
       <div class="pt-12">
-        <nuxt-link to="/manga/next-season" class="flex justify-between">
+        <nuxt-link to="/manga/next-season" class="flex justify-between mb-3">
           <h1 class="hover:text-red-500 cursor-pointer text-[#404e5c]">
             NEXT-SEASON
           </h1>
           <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
         </nuxt-link>
-        <PostListManga :MediaTrend="mediaPopulation" />
+        <div
+          class="
+            grid
+            lg:grid-cols-5 lg:gap-[39px]
+            md:grid-cols-5 md:gap-[21px]
+            grid-cols-3
+            gap-[12px]
+          "
+        >
+          <PostListManga
+            v-for="(media, index) in mediaPopulation"
+            :id="media.id"
+            :key="index"
+            :thumbnail="media.coverImage.large"
+            :title="media.title.userPreferred"
+          />
+        </div>
       </div>
 
       <div class="mt-12 pb-12">
-        <nuxt-link to="/manga/top-100" class="flex justify-between">
+        <nuxt-link to="/manga/top-100" class="flex justify-between mb-3">
           <h1 class="hover:text-red-500">TOP-100</h1>
           <h1 class="hover:text-red-500">View All</h1>
         </nuxt-link>
-        <PostListManga class="md:hidden" :MediaTrend="topMedia" />
+        <div class="grid md:grid-cols-5 md:gap-[21px] grid-cols-3 gap-[12px]">
+          <PostListManga
+            class="md:hidden"
+            v-for="(media, index) in topMedia"
+            :id="media.id"
+            :key="index"
+            :thumbnail="media.coverImage.large"
+            :title="media.title.userPreferred"
+          />
+        </div>
         <div
           v-for="(top, index) in topMedia"
           :key="top.id"
@@ -106,7 +146,7 @@
             </nuxt-link>
             <div class="pt-4">
               <nuxt-link :to="`/manga/${top.id}`" class="hover:text-red-500">{{
-                top.title.english
+                top.title.userPreferred
               }}</nuxt-link>
 
               <div>
@@ -135,7 +175,15 @@
       </div>
     </div>
     <div v-if="!isQuery">
-      <GetAllManga :allManga="filterAllManga" />
+      <div class="grid md:grid-cols-5 md:gap-[21px] grid-cols-3 gap-[12px]">
+        <PostListManga
+          v-for="(media, index) in filterAllManga"
+          :id="media.id"
+          :key="index"
+          :thumbnail="media.coverImage.large"
+          :title="media.title.userPreferred"
+        />
+      </div>
     </div>
   </div>
 </template>

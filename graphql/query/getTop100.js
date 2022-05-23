@@ -7,6 +7,7 @@ export const getTop100Manga = gql`
         title {
           english
           native
+          userPreferred
         }
         coverImage {
           large
@@ -23,6 +24,7 @@ export const getTop100Anime = gql`
         title {
           english
           native
+          userPreferred
         }
         coverImage {
           large

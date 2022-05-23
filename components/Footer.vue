@@ -4,7 +4,7 @@
       <div>
         <p class="text-[#3db4f2] text-2xl">Site Theme</p>
       </div>
-      <div class="text-sm md:flex-row md:flex md:space-x-24 md:text-xl">
+      <div class="text-sm lg:flex-row lg:flex lg:space-x-24 lg:text-xl">
         <ul class="text-white space-y-3">
           <li><a href="#" class="hover:text-[#12acfd]">Donate</a></li>
           <li><a href="#" class="hover:text-[#12acfd]">Aniast.co</a></li>

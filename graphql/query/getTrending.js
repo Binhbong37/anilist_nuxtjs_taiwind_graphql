@@ -7,6 +7,7 @@ export const getTrendingManga = gql`
         title {
           english
           native
+          userPreferred
         }
         coverImage {
           large
@@ -23,6 +24,7 @@ export const getTrendingAnime = gql`
         title {
           english
           native
+          userPreferred
         }
         coverImage {
           large

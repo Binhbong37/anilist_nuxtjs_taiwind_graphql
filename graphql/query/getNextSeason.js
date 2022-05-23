@@ -7,6 +7,7 @@ export const getNextSeasonManga = gql`
         title {
           english
           native
+          userPreferred
         }
         coverImage {
           large
@@ -23,6 +24,7 @@ export const getNextSeasonAnime = gql`
         title {
           english
           native
+          userPreferred
         }
         coverImage {
           large

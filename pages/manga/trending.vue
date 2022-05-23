@@ -1,5 +1,5 @@
 <template>
-  <AllSeasonManga :season="pageData" />
+  <AllSeasonManga :season="pageData" :title="'TRENDING-MANGA'" />
 </template>
 
 <script>
