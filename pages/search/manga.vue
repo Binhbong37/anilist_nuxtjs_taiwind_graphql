@@ -83,10 +83,9 @@
         >
           <PostListManga
             v-for="(media, index) in MediaTrend"
-            :id="media.id"
             :key="index"
-            :thumbnail="media.coverImage.large"
-            :title="media.title.userPreferred"
+            :media="media"
+            :left="(MediaTrend.indexOf(media) + 1) % 5 === 0"
           />
         </div>
       </div>
@@ -109,10 +108,9 @@
         >
           <PostListManga
             v-for="(media, index) in mediaPopulation"
-            :id="media.id"
             :key="index"
-            :thumbnail="media.coverImage.large"
-            :title="media.title.userPreferred"
+            :media="media"
+            :left="(mediaPopulation.indexOf(media) + 1) % 5 === 0"
           />
         </div>
       </div>
@@ -126,10 +124,8 @@
           <PostListManga
             class="md:hidden"
             v-for="(media, index) in topMedia"
-            :id="media.id"
             :key="index"
-            :thumbnail="media.coverImage.large"
-            :title="media.title.userPreferred"
+            :media="media"
           />
         </div>
         <div
@@ -178,10 +174,8 @@
       <div class="grid md:grid-cols-5 md:gap-[21px] grid-cols-3 gap-[12px]">
         <PostListManga
           v-for="(media, index) in filterAllManga"
-          :id="media.id"
           :key="index"
-          :thumbnail="media.coverImage.large"
-          :title="media.title.userPreferred"
+          :media="media"
         />
       </div>
     </div>

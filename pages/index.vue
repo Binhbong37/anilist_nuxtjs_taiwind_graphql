@@ -18,10 +18,9 @@
       >
         <PostListAnime
           v-for="(media, index) in MediaTrend"
-          :id="media.id"
           :key="index"
-          :thumbnail="media.coverImage.large"
-          :title="media.title.english"
+          :media="media"
+          :left="(MediaTrend.indexOf(media) + 1) % 5 === 0"
         />
       </div>
     </div>
@@ -44,10 +43,9 @@
       >
         <PostListAnime
           v-for="(media, index) in mediaPopulation"
-          :id="media.id"
           :key="index"
-          :thumbnail="media.coverImage.large"
-          :title="media.title.english"
+          :media="media"
+          :left="(mediaPopulation.indexOf(media) + 1) % 5 === 0"
         />
       </div>
     </div>
@@ -62,10 +60,8 @@
         <PostListAnime
           class="md:hidden"
           v-for="(media, index) in topMedia"
-          :id="media.id"
           :key="index"
-          :thumbnail="media.coverImage.large"
-          :title="media.title.english"
+          :media="media"
         />
       </div>
 

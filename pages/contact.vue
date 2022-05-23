@@ -1,13 +1,54 @@
 <template>
-  <div>
+  <div class="px-[135px]">
     <div v-if="loading > 0">
       <h1>HELLO WORLD</h1>
     </div>
     <div v-else>
-      <PostListCheck :media="mediaTrends" :title="'Trending now'" />
-      <PostListCheck :media="mediaPopulars" :title="'polpulatar'" />
-      <PostListCheck :media="popularSeason" :title="'popular this season'" />
-      <PostListCheck :media="upComingSeason" :title="'upcoming season'" />
+      <button class="bg-black p-2 rounded text-white" @click="changeLeft">
+        click
+      </button>
+      <div class="mb-10">
+        <h1>Trending</h1>
+        <div class="grid grid-cols-6 gap-6">
+          <PostListCheck
+            v-for="mediaa in mediaTrends"
+            :key="mediaa.id"
+            :media="mediaa"
+            :left="(mediaTrends.indexOf(mediaa) + 1) % 5 === 0"
+          />
+        </div>
+      </div>
+      <div class="mb-10">
+        <h1>Popular</h1>
+        <div class="grid grid-cols-6 gap-6">
+          <PostListCheck
+            v-for="mediaa in mediaPopulars"
+            :key="mediaa.id"
+            :media="mediaa"
+          />
+        </div>
+      </div>
+      <div class="mb-10">
+        <h1>This season</h1>
+        <div class="grid grid-cols-6 gap-6">
+          <PostListCheck
+            v-for="mediaa in popularSeason"
+            :key="mediaa.id"
+            :media="mediaa"
+          />
+        </div>
+      </div>
+      <div class="mb-10">
+        <h1>Upcoming Season</h1>
+        <div class="grid grid-cols-6 gap-6">
+          <PostListCheck
+            v-for="mediaa in upComingSeason"
+            :key="mediaa.id"
+            :media="mediaa"
+          />
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -24,7 +65,13 @@ export default {
       mediaPopulars: [],
       popularSeason: [],
       upComingSeason: [],
+      left: true,
     };
+  },
+  methods: {
+    changeLeft() {
+      this.left = !this.left;
+    },
   },
   apollo: {
     media: {

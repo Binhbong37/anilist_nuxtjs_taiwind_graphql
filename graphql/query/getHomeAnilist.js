@@ -17,43 +17,47 @@ export const getPageAnime = gql`
     }
     MediaTrend: Page(perPage: 5) {
       data: media(sort: TRENDING_DESC, type: ANIME) {
-        title {
-          english
-          native
-          userPreferred
-        }
-        coverImage {
-          large
-        }
-        id
+        ...comparisonFields
       }
     }
     mediaPopulation: Page(perPage: 5) {
       data: media(sort: POPULARITY_DESC, type: ANIME) {
-        id
-        coverImage {
-          large
-        }
-        title {
-          english
-          native
-          userPreferred
-        }
+        ...comparisonFields
       }
     }
     topMedia: Page(perPage: 5) {
       data: media(sort: SCORE_DESC, type: ANIME) {
-        id
-        genres
-        coverImage {
-          large
-        }
-        title {
-          english
-          native
-          userPreferred
-        }
+        ...comparisonFields
       }
+    }
+  }
+  fragment comparisonFields on Media {
+    id
+    format
+    averageScore
+    episodes
+    studios(isMain: true) {
+      nodes {
+        name
+      }
+    }
+    status
+    coverImage {
+      extraLarge
+      large
+      medium
+      color
+    }
+    nextAiringEpisode {
+      episode
+      airingAt
+    }
+    genres
+    title {
+      romaji
+      english
+      native
+      userPreferred
     }
   }
 `;
@@ -74,43 +78,47 @@ export const getPageManga = gql`
     }
     MediaTrend: Page(page: $page, perPage: 5) {
       data: media(sort: TRENDING_DESC, type: MANGA) {
-        title {
-          english
-          native
-          userPreferred
-        }
-        coverImage {
-          large
-        }
-        id
+        ...comparisonFields
       }
     }
     mediaPopulation: Page(page: $page, perPage: 5) {
       data: media(sort: POPULARITY_DESC, type: MANGA) {
-        id
-        coverImage {
-          large
-        }
-        title {
-          english
-          native
-          userPreferred
-        }
+        ...comparisonFields
       }
     }
     topMedia: Page(page: $page, perPage: 5) {
       data: media(sort: SCORE_DESC, type: MANGA) {
-        id
-        genres
-        coverImage {
-          large
-        }
-        title {
-          english
-          native
-          userPreferred
-        }
+        ...comparisonFields
       }
+    }
+  }
+  fragment comparisonFields on Media {
+    id
+    format
+    averageScore
+    episodes
+    studios(isMain: true) {
+      nodes {
+        name
+      }
+    }
+    status
+    coverImage {
+      extraLarge
+      large
+      medium
+      color
+    }
+    nextAiringEpisode {
+      episode
+      airingAt
+    }
+    genres
+    title {
+      romaji
+      english
+      native
+      userPreferred
     }
   }
 `;

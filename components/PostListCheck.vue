@@ -1,22 +1,109 @@
 <template>
-  <div class="landing-section">
-    <nuxt-link to="/" class="title-links">
-      <h3 class="font-bold">{{ title }}</h3>
-      <div class="expand">View all</div>
-    </nuxt-link>
-    <div class="results">
-      <div
-        class="media-card"
-        v-for="(me, index) in media"
-        :key="index"
-        @mouseenter="showMoal(me.id)"
-        @mouseleave="hideModal"
-      >
-        <nuxt-link to="/" class="cover">
-          <img :src="me.coverImage.medium" alt="title" class="image loaded" />
-        </nuxt-link>
-        <nuxt-link to="/" class="title-image">{{ me.title.english }}</nuxt-link>
-        <div class="hover-data" :class="isShowModal ? 'hidden' : 'block'"></div>
+  <div
+    class="
+      relative
+      w-36
+      my-2
+      max-w-sm max-h-72
+      rounded
+      cursor-pointer
+      sm:w-40
+      md:w-32 md:max-w-sm md:min-w-full
+      lg:w-40
+      first-letter:lg:max-w-xs
+      lg:min-w-full
+      xl:max-w-sm xl:min-w-full
+      2xl:max-w-sm 2xl:min-w-full
+    "
+    @mouseover="mouseover"
+    @mouseleave="mouseleave"
+  >
+    <div class="max-w-xs overflow-hidden align-text-top rounded aspect-[3/4]">
+      <img
+        :src="media.coverImage.large"
+        :alt="media.title"
+        class="rounded w-[138px] h-[160px] lg:w-full lg:h-[265px] md:h-[190px]"
+      />
+    </div>
+    <div class="mr-2">
+      <div class="text-left text-md line-clamp-2">
+        <p class="media-title truncate hover:text-clip">
+          {{ media.title.userPreferred }}
+        </p>
+      </div>
+    </div>
+    <div
+      class="
+        self-start
+        text-md text-left
+        absolute
+        font-medium
+        top-3
+        rounded
+        translate-x-full
+        z-10
+        w-72
+        md:min-w-0
+        lg:visible
+        invisible
+        bg-white
+        px-4
+        py-3
+        shadow-2xl
+      "
+      :class="{ 'card-box-left': left, 'card-box': !left }"
+      :style="[
+        { display: displayMedia },
+        { right: left ? '' : '-1.25rem' },
+        { left: left ? '-1.25rem' : '' },
+        { transform: left ? 'translateX(-100%)' : '' },
+      ]"
+    >
+      <div class="relative">
+        <div class="flex justify-between pb-3">
+          <h3 class="">
+            Ep
+            {{
+              media.nextAiringEpisode ? media.nextAiringEpisode.episode : "7"
+            }}
+            in 6 days
+          </h3>
+          <div v-if="media.averageScore">
+            <div v-if="media.averageScore > 80">
+              <i style="color: green" class="far fa-smile"></i>
+              {{ media.averageScore }}%
+            </div>
+            <div v-else>
+              <i style="color: red" class="far fa-smile"></i>
+              {{ media.averageScore }}%
+            </div>
+          </div>
+        </div>
+        <div class="flex">
+          <div
+            :style="{ color: media.coverImage.color }"
+            class="pb-2 text-sm"
+            v-for="(node, index) in media.studios.nodes"
+            :key="index"
+          >
+            <div v-if="node != media.studios.nodes">{{ node.name }},</div>
+            <div v-else>{{ node.name }}</div>
+          </div>
+        </div>
+        <div class="pb-4">
+          {{ media.format }} Show
+          {{ media.episodes ? " - " + media.episodes + " episodes" : "" }}
+        </div>
+        <div class="flex flex-wrap overflow-hidden">
+          <div v-for="(genre, index) in media.genres.slice(0, 3)" :key="index">
+            <p
+              :style="style"
+              class="text-white rounded-xl py-1 px-2 text-xs mr-2 mb-3"
+            >
+              {{ genre }}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -24,131 +111,68 @@
 
 <script>
 export default {
-  props: {
-    title: String,
-    media: Array,
-  },
   data() {
     return {
-      isShowModal: true,
+      displayMedia: "none",
     };
   },
-  methods: {
-    showMoal(id) {
-      console.log(id);
-      this.isShowModal = false;
+  props: {
+    media: {
+      type: Object,
     },
-    hideModal() {
-      this.isShowModal = true;
+    left: {
+      type: Boolean,
+    },
+  },
+  methods: {
+    mouseover() {
+      this.displayMedia = "block";
+    },
+    mouseleave() {
+      this.displayMedia = "none";
+    },
+  },
+  computed: {
+    style() {
+      return {
+        "background-color": this.media.coverImage.color,
+      };
     },
   },
 };
 </script>
 
 <style>
-.landing-section {
-  margin: 0 auto;
-  min-width: 320px;
-  width: 100%;
-  margin-bottom: 20px;
-}
+.more-info {
+  display: var(--displayMedia);
 
-.title-links {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 3px;
-  padding: 0 10px;
+  widows: 100px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 12px;
 }
-
-.results {
-  display: grid;
-  justify-content: space-between;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  grid-gap: 20px 12px;
-  padding: 0 10px;
-}
-
-.media-card {
-  display: grid;
-  grid-auto-rows: min-content auto;
-  position: relative;
-  width: 110px;
-}
-
-.cover {
-  border-radius: 4px;
-  display: inline-block;
-  height: 158px;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  z-index: 5;
-  cursor: pointer;
-}
-
-.image {
-  height: 100%;
-  left: 0;
-  object-fit: cover;
-  /* opacity: 0; */
+.card-box::before {
   position: absolute;
-  top: 0;
-  transition: opacity 0.3s ease-in-out;
-  width: 100%;
+  content: "\A";
+  border-style: solid;
+  border-width: 10px 15px 10px 0;
+  border-color: transparent white transparent transparent;
+  position: absolute;
+  left: -3%;
 }
+.card-box-left::before {
+  position: absolute;
+  content: "\A";
+  border-style: solid;
+  border-width: 10px 15px 10px 0;
+  border-color: transparent white transparent transparent;
+  position: absolute;
 
-.title-image {
-  font-size: 12px;
-  margin-top: 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 15px;
-  -webkit-line-clamp: 2;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
+  transform: rotate(0.5turn);
+
+  right: -3%;
 }
-@media (min-width: 760px) and (max-width: 1540px) {
-  .landing-section {
-    padding-left: 30px;
-    padding-right: 30px;
-    margin: 20px 104.5px;
-  }
-
-  .title-links {
-    padding: 0 20px;
-    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
-  }
-
-  .results {
-    position: relative;
-    grid-gap: 25px 20px;
-    grid-template-columns: repeat(auto-fill, 185px);
-    justify-content: space-between;
-  }
-
-  .media-card {
-    width: 185px;
-  }
-  .cover {
-    cursor: pointer;
-    display: inline-block;
-    height: 265px;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    z-index: 5;
-    border-radius: 4px;
-  }
-
-  .hover-data {
-    position: absolute;
-    width: 170px;
-    height: 100px;
-    border-radius: 4px;
-    top: 20px;
-    right: -100%;
-    background: #fff;
-    z-index: 10;
-  }
+.media-title:hover {
+  color: var(--background-color);
 }
 </style>
