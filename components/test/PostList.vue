@@ -61,6 +61,14 @@
         />
         <i class="fas fa-caret-down"></i>
       </div>
+      <div>
+        <select v-model="seasonMedia">
+          <option value="WINTER">WINTER</option>
+          <option value="SUMMER">SUMMER</option>
+          <option value="SPRING">SPRING</option>
+          <option value="FALL">FALL</option>
+        </select>
+      </div>
     </form>
     <h1>{{ valueInput }}</h1>
     <button @click="handleClick">Click</button>
@@ -72,6 +80,7 @@ export default {
   data() {
     return {
       valueInput: "",
+      seasonMedia: "WINTER",
     };
   },
 
@@ -93,6 +102,10 @@ export default {
       console.log({ newValue });
       this.$emit("customE", newValue);
       this.$router.push({ path: "/contact", query: { search: newValue } });
+    },
+
+    seasonMedia(newValue, oldValue) {
+      this.$emit("customSeason", newValue);
     },
   },
 };

@@ -76,3 +76,58 @@ More information about the usage of this directory in [the documentation](https:
   input(newValue, oldValue) {
   }
   }
+
+=> Theo dõi sự thay đổi của 1 trường nào đó, khi nhận thấy có sự thay đổi sẽ render lại componet
+
+### NHỮNG TRƯỜNG HỢP LÀM VIỆC VỚI LẤY DỮ LIỆU BẰNG APOLLO
+
+CÁCH 1:
+import gql from "graphql-tag";
+
+const queryMedia = gql` query { Page(page: 1) { pageInfo { total currentPage hasNextPage } media { id season type status episodes description genres } } }`;
+
+data() {
+return {
+query: queryMedia,
+};
+},
+
+Dùng kết quả ở trên:
+<template>
+
+ <div>
+    <ApolloQuery :query="query">
+      <template slot-scope="{ result: { data, loading, err } }">
+        <div v-if="loading">Loading . . .</div>
+        <div v-else-if="err">{{ err }}</div>
+        <div v-else>
+          <h1>{{ data.Page.media }}</h1>
+        </div>
+      </template>
+    </ApolloQuery>
+  </div>
+ </template>
+
+CÁCH 2:
+
+dùng apollo: {}
+apollo: {
+Page: {
+query: gql``
+}
+}
+
+=> LƯU Ý BIẾN ĐỂ HỨNG ( PAGE ), cần xem kết quả ở phía test nó phải trả về đúng biến
+
+- Nếu muốn đổi tên biến hứng DÙNG:
+  update: (data) => data.Page (Bên trong đặt biến hứng luôn)
+
+CÁCH 3: Tạo hẳn file query bên ngoài (đuôi js), rồi import vào để dùng
+
+- Có thể dùng <nuxt-link to="{
+    name:'ten_cua_1_file_route',
+    params: {key: value},
+    query: {key: value}
+  }">
+
+- Kiến thức về props down và Event Up, vẫn đúng cho thanh search
