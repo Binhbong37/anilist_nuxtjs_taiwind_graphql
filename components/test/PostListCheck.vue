@@ -18,6 +18,7 @@
     @mouseover="mouseover"
     @mouseleave="mouseleave"
   >
+    <h1>{{ search }}</h1>
     <div class="max-w-xs overflow-hidden align-text-top rounded aspect-[3/4]">
       <img
         :src="media.coverImage.large"
@@ -122,6 +123,9 @@ export default {
     },
     left: {
       type: Boolean,
+    },
+    search: {
+      type: String,
     },
   },
   methods: {

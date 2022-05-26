@@ -61,7 +61,7 @@
             </div>
           </div>
         </div>
-        <!-- <div class="flex" v-if="media.studios.nodes.lenght > 0">
+        <div class="flex" v-if="media.studios.nodes.lenght > 0">
           <div
             v-for="(node, index) in media.studios.nodes"
             :key="index"
@@ -71,14 +71,12 @@
             <div v-if="node != media.studios.nodes">{{ node.name }},</div>
             <div v-else>{{ node.name }}</div>
           </div>
-        </div> -->
+        </div>
         <div class="pb-4">
           {{ media.format }} Show
           {{ media.episodes ? " - " + media.episodes + " episodes" : "" }}
         </div>
-        <!-- <div
-          class="flex flex-wrap overflow-hidden"
-        >
+        <div class="flex flex-wrap overflow-hidden">
           <div v-for="(genre, index) in media.genres.slice(0, 3)" :key="index">
             <p
               :style="style"
@@ -87,7 +85,7 @@
               {{ genre }}
             </p>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -160,9 +158,7 @@ export default {
   border-width: 10px 15px 10px 0;
   border-color: transparent white transparent transparent;
   position: absolute;
-
   transform: rotate(0.5turn);
-
   right: -3%;
 }
 .media-title:hover {

@@ -1,16 +1,15 @@
 <template>
   <div class="px-[135px]">
-    <div v-if="loading > 0">
-      <h1>HELLO WORLD</h1>
+    <div v-if="loading">
+      <h1 class="text-4xl font-bold">HELLO WORLD</h1>
     </div>
     <div v-else>
-      <button class="bg-black p-2 rounded text-white" @click="changeLeft">
-        click
-      </button>
+      <PostListForm @customE="customE" :search="search" />
       <div class="mb-10">
         <h1>Trending</h1>
         <div class="grid grid-cols-6 gap-6">
           <PostListCheck
+            :search="search"
             v-for="mediaa in mediaTrends"
             :key="mediaa.id"
             :media="mediaa"
@@ -46,7 +45,6 @@
             :key="mediaa.id"
             :media="mediaa"
           />
-          />
         </div>
       </div>
     </div>
@@ -54,25 +52,13 @@
 </template>
 
 <script>
+import PostListCheck from "../components/test/PostListCheck.vue";
+import PostListForm from "../components/test/PostList.vue";
 import { mediaQuery } from "../graphql/query/getHometest";
 export default {
   layout: "testPage",
-  data() {
-    return {
-      loading: 0,
-      mediaTrends: [],
-      topAnime: [],
-      mediaPopulars: [],
-      popularSeason: [],
-      upComingSeason: [],
-      left: true,
-    };
-  },
-  methods: {
-    changeLeft() {
-      this.left = !this.left;
-    },
-  },
+  components: { PostListCheck, PostListForm },
+
   apollo: {
     media: {
       query: mediaQuery,
@@ -87,6 +73,23 @@ export default {
           this.upComingSeason = data.upComingSeason.data;
         }
       },
+    },
+  },
+  data() {
+    return {
+      loading: true,
+      mediaTrends: [],
+      topAnime: [],
+      mediaPopulars: [],
+      popularSeason: [],
+      upComingSeason: [],
+      left: true,
+      search: "acc",
+    };
+  },
+  methods: {
+    customE(data) {
+      this.search = data;
     },
   },
 };

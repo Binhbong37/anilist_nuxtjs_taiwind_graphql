@@ -1,53 +1,54 @@
 <template>
   <div>
-    <h1>{{ test }}</h1>
+    <div v-if="loading > 0">
+      <h1>Hello world!!!</h1>
+    </div>
+    <div v-else>
+      <!-- Media Trend -->
+      <div class="grid grid-cols-6 gap-6">
+        <div v-for="(media, index) in mediaTrends" :key="index">
+          <img :src="media.coverImage.medium" alt="Image" />
+          <h1>{{ media.title.userPreferred }}</h1>
+        </div>
+      </div>
+      <!-- Media Population -->
+      <div class="grid grid-cols-6 gap-6">
+        <div v-for="(media, index) in mediaPopulars" :key="index">
+          <img :src="media.coverImage.medium" alt="Image" />
+          <h1>{{ media.title.userPreferred }}</h1>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
-
 <script>
-import gql from "graphql-tag";
-const ABC = gql`
-  query {
-    Page(page: 1) {
-      pageInfo {
-        total
-        currentPage
-        hasNextPage
-      }
-      media {
-        id
-        season
-        type
-        status
-        episodes
-        description
-        genres
-      }
-    }
-  }
-`;
+import { getPageAnime } from "../graphql/query/getHomeAnilist";
 export default {
   layout: "testPage",
+  name: "PageTest",
   data() {
     return {
-      test: ["abc"],
+      loading: 0,
+      mediaTrends: [],
+      topAnime: [],
+      mediaPopulars: [],
+      popularSeason: [],
+      upComingSeason: [],
     };
   },
   apollo: {
     media: {
-      query: ABC,
+      query: getPageAnime,
+      loadingKey: "loading",
       manual: true,
-
       result({ data, loading }) {
         if (!loading) {
-          console.log("a");
-          this.test = data.Page.media;
+          this.mediaTrends = data.MediaTrend.data;
+          this.mediaPopulars = data.mediaPopulation.data;
+          this.topAnime = data.topMedia.data;
         }
       },
     },
   },
 };
 </script>
-
-<style>
-</style>

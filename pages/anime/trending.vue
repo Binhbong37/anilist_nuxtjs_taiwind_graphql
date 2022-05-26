@@ -35,9 +35,10 @@ export default {
     handleScroll() {
       const log1 = window.scrollY;
       const log2 = window.innerHeight;
-      const log3 = document.body.scrollHeight - 50;
+      const log3 = document.body.scrollHeight - 200;
       if (log1 + log2 >= log3) {
         this.page++;
+        console.log(this.page);
         const newPage = this.Page.media;
         this.pageData = [...this.pageData, ...newPage];
       }

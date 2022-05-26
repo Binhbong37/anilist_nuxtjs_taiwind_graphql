@@ -106,7 +106,7 @@
             "
           />
           <h1 class="anime-title mt-2">
-            {{ trending.title.english || trending.title.romaji }}
+            {{ trending.title.userPreferred }}
           </h1>
         </nuxt-link>
       </div>
@@ -150,8 +150,8 @@ export default {
   computed: {
     seasonFilter() {
       return this.season.filter((trend) => {
-        const lowerText = trend.title.english || trend.title.native;
-        const upperText = trend.title.english || trend.title.native;
+        const lowerText = trend.title.userPreferred;
+        const upperText = trend.title.userPreferred;
         lowerText.toLowerCase();
         upperText.toUpperCase();
         return (

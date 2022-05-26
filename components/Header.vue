@@ -64,7 +64,9 @@
                 </ul>
               </li>
               <li @click="handleClose" class="px-4">
-                <a href="#" class="block py-2 border-b md:border-0 md:p-0 text"
+                <a
+                  href="/contact"
+                  class="block py-2 border-b md:border-0 md:p-0 text"
                   >Social</a
                 >
               </li>
