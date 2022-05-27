@@ -131,3 +131,12 @@ CÁCH 3: Tạo hẳn file query bên ngoài (đuôi js), rồi import vào để
   }">
 
 - Kiến thức về props down và Event Up, vẫn đúng cho thanh search
+
+### Học về VUEX trong nuxt js
+
+tạo index.js trong store
+
+- Dữ liệu tạo trong store có thể dùng được ở nhiều file, k cần qua props, khi phát tín hiệu thay đổi từ bất kỳ component nào => tất cả giá trị trong các component khác nhận dữ liệu từ store cũng sẽ thay đổi theo
+
+* muatation: dùng this.$store.commit('') để truy cập
+* actions: dùng this.$store.dispatch('') để truy cập

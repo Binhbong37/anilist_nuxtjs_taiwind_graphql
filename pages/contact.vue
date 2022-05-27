@@ -2,6 +2,13 @@
   <div class="px-[135px]">
     <div v-if="loading">
       <h1 class="text-4xl font-bold">HELLO WORLD</h1>
+      <h1>Contact Page:{{ counter }}</h1>
+      <button @click="callMutation" class="bg-black text-white p-2">
+        Mutation
+      </button>
+      <button @click="callAction" class="bg-black text-white p-2">
+        Action
+      </button>
     </div>
     <div v-else>
       <PostListForm @customE="customE" :search="search" />
@@ -90,6 +97,17 @@ export default {
   methods: {
     customE(data) {
       this.search = data;
+    },
+    callMutation() {
+      this.$store.commit("increment");
+    },
+    callAction() {
+      return this.$store.dispatch("increment");
+    },
+  },
+  computed: {
+    counter() {
+      return this.$store.getters.readCounter;
     },
   },
 };
