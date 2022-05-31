@@ -18,8 +18,9 @@
                   rounded
                   text-white
                   min-w-[150px]
-                  md:min-w-[200px] md:py-2
+                  lg:min-w-[200px] lg:py-2
                   ml-5
+                  md:m-0
                 "
               >
                 Add to List

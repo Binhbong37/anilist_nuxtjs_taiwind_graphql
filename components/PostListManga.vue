@@ -1,6 +1,6 @@
 <template>
   <div class="relative" @mouseover="mouseover" @mouseleave="mouseleave">
-    <nuxt-link :to="`/manga/${media.id}`">
+    <nuxt-link :to="`/manga/${media.id}`" class="hover:text-[#dc2626]">
       <img
         :src="media.coverImage.large"
         alt="Image"

@@ -73,7 +73,7 @@
         </div>
       </div>
       <!-- Next-Season -->
-      <div class="mt-[100px]">
+      <div class="mt-[70px]">
         <nuxt-link to="/anime/next-season" class="flex justify-between mb-4">
           <h1 class="hover:text-red-500 cursor-pointer text-[#404e5c]">
             NEXT-SEASON
@@ -160,7 +160,7 @@
 
 <script>
 import PostListSkeleton from "../components/Skeleton/PostListSkeleton.vue";
-import { getPageAnime } from "../graphql/query/getHomeAnilist";
+import { getMedia } from "../graphql/query/getHomeAnilist";
 
 export default {
   components: { PostListSkeleton },
@@ -174,11 +174,13 @@ export default {
   },
   apollo: {
     media: {
-      query: getPageAnime,
+      query: getMedia,
       manual: true,
       loadingKey: "loading",
       variables: {
         page: 1,
+        type: "ANIME",
+        perPage: 5,
       },
       result({ data, loading }) {
         if (!loading) {

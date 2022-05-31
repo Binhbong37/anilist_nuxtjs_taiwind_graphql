@@ -140,3 +140,8 @@ tạo index.js trong store
 
 * muatation: dùng this.$store.commit('') để truy cập
 * actions: dùng this.$store.dispatch('') để truy cập
+
+### CHÚ Ý
+
+- file test đang bị loading lần đầu tiên,
+- lần đầu điền giá trị chạy cũng chưa đúng

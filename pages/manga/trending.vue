@@ -1,10 +1,32 @@
 <template>
-  <AllSeasonManga :season="pageData" :title="'TRENDING-MANGA'" />
+  <div class="px-[10px] md:px-5 lg:px-[135px]">
+    <div class="py-12">
+      <h1 class="text-2xl">Trending Manga</h1>
+    </div>
+    <div
+      class="
+        grid
+        lg:grid-cols-5 lg:gap-[39px]
+        md:grid-cols-5 md:gap-[21px]
+        grid-cols-3
+        gap-[12px]
+      "
+    >
+      <PostListManga
+        v-for="(media, index) in pageData"
+        :key="index"
+        :media="media"
+        :left="(pageData.indexOf(media) + 1) % 5 === 0"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
-import { getTrendingManga } from "../../graphql/query/getTrending";
+import PostListManga from "../../components/PostListManga.vue";
+import { getTrendManga } from "../../graphql/query/getTrending";
 export default {
+  components: { PostListManga },
   data() {
     return {
       page: 1,
@@ -19,7 +41,7 @@ export default {
     handleScroll() {
       const log1 = window.scrollY;
       const log2 = window.innerHeight;
-      const log3 = document.body.scrollHeight - 50;
+      const log3 = document.body.scrollHeight - 200;
       if (log1 + log2 >= log3) {
         this.page++;
         const newPage = this.Page.media;
@@ -30,7 +52,7 @@ export default {
   async asyncData({ app }) {
     const client = app.apolloProvider.defaultClient;
     const res = await client.query({
-      query: getTrendingManga,
+      query: getTrendManga,
       variables() {
         return {
           page: this.page,

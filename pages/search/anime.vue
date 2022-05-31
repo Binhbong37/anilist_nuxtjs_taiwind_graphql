@@ -1,6 +1,6 @@
 <template>
   <div class="px-[10px] md:px-5 lg:px-[135px]">
-    <div v-if="loading > 0">
+    <!-- <div v-if="loading > 0">
       <div
         class="
           grid
@@ -46,75 +46,31 @@
         <PostListSkeleton />
         <PostListSkeleton />
       </div>
-    </div>
-    <div v-else>
+    </div> -->
+    <div>
       <div class="pt-12">
-        <form>
-          <div class="bg-white py-2 px-3 rounded inline-block mr-5">
-            <i class="fas fa-search"></i>
-            <input
-              type="text"
-              name="search"
-              class="rounded px-2 outline-0"
-              placeholder="Search . . ."
-              v-model="search"
-              @keypress="handleKey"
-            />
-          </div>
-          <div
-            class="bg-white py-2 px-3 rounded hidden md:inline-block md:mr-5"
-          >
-            <input
-              type="text"
-              name="genres"
-              class="rounded px-2 outline-0"
-              placeholder="Genres"
-              readonly
-            />
-            <i class="fas fa-caret-down"></i>
-          </div>
-          <div
-            class="
-              bg-white
-              py-2
-              px-3
-              rounded
-              hidden
-              lg:mt-5
-              md:inline-block md:mr-5
-            "
-          >
-            <input
-              type="text"
-              name="year"
-              class="rounded px-2 outline-0"
-              placeholder="Year"
-              readonly
-            />
-            <i class="fas fa-caret-down"></i>
-          </div>
-          <div
-            class="
-              bg-white
-              py-2
-              px-3
-              rounded
-              hidden
-              md:inline-block md:mr-5 md:mt-5
-            "
-          >
-            <input
-              type="text"
-              name="format"
-              class="rounded px-2 outline-0"
-              placeholder="Format"
-              readonly
-            />
-            <i class="fas fa-caret-down"></i>
-          </div>
-        </form>
+        <SearchBarAnime />
       </div>
       <div v-if="isQuery">
+        <div
+          class="
+            pt-12
+            grid
+            lg:grid-cols-5 lg:gap-[39px]
+            md:grid-cols-5 md:gap-[21px]
+            grid-cols-3
+            gap-[12px]
+          "
+        >
+          <PostListAnime
+            v-for="(media, index) in allMedia"
+            :key="index"
+            :media="media"
+            :left="(allMedia.indexOf(media) + 1) % 5 === 0"
+          />
+        </div>
+      </div>
+      <div v-else>
         <div class="pt-12">
           <nuxt-link to="/anime/trending" class="flex justify-between mb-3">
             <h1 class="hover:text-red-500 cursor-pointer text-[#404e5c]">
@@ -222,41 +178,35 @@
           </div>
         </div>
       </div>
-      <div v-if="!isQuery">
-        <GetAllAnime :allAnime="filterAllAnime" />
-      </div>
     </div>
   </div>
 </template>
 
 <script>
+import SearchBarAnime from "../../components/SearchBarAnime.vue";
 import PostListSkeleton from "../../components/Skeleton/PostListSkeleton.vue";
-import { getPageAnime } from "../../graphql/query/getHomeAnilist";
+import { getMedia } from "../../graphql/query/getHomeAnilist";
 export default {
-  components: { PostListSkeleton },
+  components: { PostListSkeleton, SearchBarAnime },
   data() {
     return {
       loading: 0,
-      filterAllAnime: [],
       MediaTrend: [],
-      allAnime: [],
       mediaPopulation: [],
       topMedia: [],
-      search: "",
-      sort: this.$route.query.sort || "",
-      page: 1,
-      isQuery: true,
+      allMedia: [],
+      isQuery: false,
     };
   },
   apollo: {
     Page: {
-      query: getPageAnime,
+      query: getMedia,
       loadingKey: "loading",
       manual: true,
       variables() {
         return {
-          page: this.page,
-          sort: this.sort || "TRENDING_DESC",
+          perPage: 5,
+          type: "ANIME",
         };
       },
       result({ data, loading }) {
@@ -264,45 +214,33 @@ export default {
           this.MediaTrend = data.MediaTrend.data;
           this.mediaPopulation = data.mediaPopulation.data;
           this.topMedia = data.topMedia.data;
-          this.allAnime = data.getAllAnime.data;
+          this.allMedia = data.getAllMedia.data;
         }
       },
     },
   },
-  methods: {
-    handleKey() {
-      this.isQuery = false;
+  computed: {
+    queryObject: function () {
+      return this.$route.query;
     },
   },
   watch: {
-    search(newValue, oldValue) {
-      console.log({ newValue });
-      console.log({ oldValue });
-      if (!this.search) {
-        this.$router.push({ path: "/search/anime" });
-        this.$router.go();
+    queryObject(val) {
+      if (Object.keys(val).length === 0) {
+        this.isQuery = false;
       } else {
-        this.$router.push({
-          path: "/search/anime",
-          query: { search: newValue },
+        this.isQuery = true;
+        const newFetch = this.$apollo.queries.Page.refetch({
+          searchString: this.$route.query?.search,
+          genre: this.$route.query.genre,
+          season: this.$route.query.season,
+          format: this.$route.query.format,
         });
-        this.filterAllAnime = this.allAnime.filter((all) => {
-          const titleCondi = all.title.english || all.title.native;
-          return titleCondi.includes(this.search);
-        });
+        newFetch
+          .then((data) => (this.allMedia = data.data.getAllMedia.data))
+          .catch((err) => console.log(err));
       }
     },
-  },
-
-  mounted() {
-    if (this.sort !== "") {
-      this.isQuery = false;
-      if (this.allAnime.length <= 0) {
-        window.location.reload();
-      } else {
-        this.filterAllAnime = this.allAnime;
-      }
-    }
   },
 };
 </script>

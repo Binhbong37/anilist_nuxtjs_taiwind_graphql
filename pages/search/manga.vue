@@ -1,6 +1,6 @@
 <template>
   <div class="px-[10px] md:px-5 lg:px-[135px]">
-    <div v-if="loading > 0">
+    <!-- <div v-if="loading > 0">
       <div
         class="
           grid
@@ -46,75 +46,30 @@
         <PostListSkeleton />
         <PostListSkeleton />
       </div>
-    </div>
-    <div v-else>
+    </div> -->
+    <div>
       <div class="pt-12 mb-10">
-        <form>
-          <div class="bg-white py-2 px-3 rounded inline-block mr-5">
-            <i class="fas fa-search"></i>
-            <input
-              type="text"
-              name="search"
-              class="rounded px-2 outline-0"
-              placeholder="Search . . ."
-              v-model="search"
-              @keypress="handleKey"
-            />
-          </div>
-          <div
-            class="bg-white py-2 px-3 rounded hidden md:inline-block md:mr-5"
-          >
-            <input
-              type="text"
-              name="genres"
-              class="rounded px-2 outline-0"
-              placeholder="Genres"
-              readonly
-            />
-            <i class="fas fa-caret-down"></i>
-          </div>
-          <div
-            class="
-              bg-white
-              py-2
-              px-3
-              rounded
-              hidden
-              md:mt-5 md:inline-block md:mr-5
-            "
-          >
-            <input
-              type="text"
-              name="year"
-              class="rounded px-2 outline-0"
-              placeholder="Year"
-              readonly
-            />
-            <i class="fas fa-caret-down"></i>
-          </div>
-          <div
-            class="
-              bg-white
-              py-2
-              px-3
-              md:mt-5
-              rounded
-              hidden
-              md:inline-block md:mr-5
-            "
-          >
-            <input
-              type="text"
-              name="format"
-              class="rounded px-2 outline-0"
-              placeholder="Format"
-              readonly
-            />
-            <i class="fas fa-caret-down"></i>
-          </div>
-        </form>
+        <SearchBarManga />
       </div>
       <div v-if="isQuery">
+        <div
+          class="
+            grid
+            lg:grid-cols-5 lg:gap-[39px]
+            md:grid-cols-5 md:gap-[21px]
+            grid-cols-3
+            gap-[12px]
+          "
+        >
+          <PostListManga
+            v-for="(media, index) in allMedia"
+            :key="index"
+            :media="media"
+            :left="(allMedia.indexOf(media) + 1) % 5 === 0"
+          />
+        </div>
+      </div>
+      <div v-else>
         <div class="pt-12">
           <nuxt-link to="/manga/trending" class="flex justify-between mb-3">
             <h1 class="hover:text-red-500 cursor-pointer text-[#404e5c]">
@@ -222,41 +177,35 @@
           </div>
         </div>
       </div>
-      <div v-if="!isQuery">
-        <GetAllManga :allManga="filterAllManga" />
-      </div>
     </div>
   </div>
 </template>
 
 <script>
+import SearchBarManga from "../../components/SearchBarManga.vue";
 import PostListSkeleton from "../../components/Skeleton/PostListSkeleton.vue";
-import { getPageManga } from "../../graphql/query/getHomeAnilist";
+import { getMedia } from "../../graphql/query/getHomeAnilist";
 export default {
-  components: { PostListSkeleton },
+  components: { PostListSkeleton, SearchBarManga },
   data() {
     return {
-      filterAllManga: [],
       MediaTrend: [],
-      allManga: [],
       mediaPopulation: [],
       topMedia: [],
+      allMedia: [],
       loading: 0,
-      search: "",
-      sort: this.$route.query.sort || "",
-      page: 1,
-      isQuery: true,
+      isQuery: false,
     };
   },
   apollo: {
     Page: {
-      query: getPageManga,
+      query: getMedia,
       loadingKey: "loading",
       manual: true,
       variables() {
         return {
-          page: this.page,
-          sort: this.sort || "TRENDING_DESC",
+          perPage: 5,
+          type: "MANGA",
         };
       },
       result({ data, loading }) {
@@ -264,42 +213,33 @@ export default {
           this.MediaTrend = data.MediaTrend.data;
           this.mediaPopulation = data.mediaPopulation.data;
           this.topMedia = data.topMedia.data;
-          this.allManga = data.getAllManga.data;
+          this.allMedia = data.getAllMedia.data;
         }
       },
     },
   },
-  methods: {
-    handleKey() {
-      this.isQuery = false;
+  computed: {
+    queryObject: function () {
+      return this.$route.query;
     },
   },
   watch: {
-    search() {
-      if (!this.search) {
-        this.$router.push({ path: "/search/manga" });
-        this.$router.go();
+    queryObject(val) {
+      if (Object.keys(val).length === 0) {
+        this.isQuery = false;
       } else {
-        this.$router.push({
-          path: "/search/manga",
-          query: { search: this.search },
+        this.isQuery = true;
+        const newFetch = this.$apollo.queries.Page.refetch({
+          searchString: this.$route.query?.search,
+          genre: this.$route.query.genre,
+          season: this.$route.query.season,
+          format: this.$route.query.format,
         });
-        this.filterAllManga = this.allManga.filter((all) => {
-          const titleCondi = all.title.english || all.title.native;
-          return titleCondi.includes(this.search);
-        });
+        newFetch
+          .then((data) => (this.allMedia = data.data.getAllMedia.data))
+          .catch((err) => console.log(err));
       }
     },
-  },
-  mounted() {
-    if (this.sort !== "") {
-      this.isQuery = false;
-      if (this.allManga.length <= 0) {
-        window.location.reload();
-      } else {
-        this.filterAllManga = this.allManga;
-      }
-    }
   },
 };
 </script>

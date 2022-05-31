@@ -1,9 +1,29 @@
 <template>
-  <AllSeasonManga :season="pageData" :title="'TOP-100 MANGA'" />
+  <div class="px-[10px] md:px-5 lg:px-[135px]">
+    <div class="py-12">
+      <h1 class="text-2xl">Top 100 Manga</h1>
+    </div>
+    <div
+      class="
+        grid
+        lg:grid-cols-5 lg:gap-[39px]
+        md:grid-cols-5 md:gap-[21px]
+        grid-cols-3
+        gap-[12px]
+      "
+    >
+      <PostListManga
+        v-for="(media, index) in pageData"
+        :key="index"
+        :media="media"
+        :left="(pageData.indexOf(media) + 1) % 5 === 0"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
-import { getTop100Manga } from "../../graphql/query/getTop100";
+import { getTopManga } from "../../graphql/query/getTop100";
 export default {
   data() {
     return {
@@ -30,7 +50,7 @@ export default {
   async asyncData({ app }) {
     const client = app.apolloProvider.defaultClient;
     const res = await client.query({
-      query: getTop100Manga,
+      query: getTopManga,
       variables() {
         return {
           page: this.page,

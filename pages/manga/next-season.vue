@@ -1,9 +1,29 @@
 <template>
-  <AllSeasonManga :season="pageData" :title="'NEXT-SEASON'" />
+  <div class="px-[10px] md:px-5 lg:px-[135px]">
+    <div class="py-12">
+      <h1 class="text-2xl">Next-season Manga</h1>
+    </div>
+    <div
+      class="
+        grid
+        lg:grid-cols-5 lg:gap-[39px]
+        md:grid-cols-5 md:gap-[21px]
+        grid-cols-3
+        gap-[12px]
+      "
+    >
+      <PostListManga
+        v-for="(media, index) in pageData"
+        :key="index"
+        :media="media"
+        :left="(pageData.indexOf(media) + 1) % 5 === 0"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
-import { getNextSeasonManga } from "../../graphql/query/getNextSeason";
+import { getPopularManga } from "../../graphql/query/getNextSeason";
 export default {
   data() {
     return {
@@ -30,7 +50,7 @@ export default {
   async asyncData({ app }) {
     const client = app.apolloProvider.defaultClient;
     const res = await client.query({
-      query: getNextSeasonManga,
+      query: getPopularManga,
       variables() {
         return {
           page: this.page,
@@ -38,6 +58,7 @@ export default {
       },
     });
     const { Page } = res.data;
+
     return {
       Page,
     };

@@ -1,6 +1,9 @@
 <template>
   <div class="relative" @mouseover="mouseover" @mouseleave="mouseleave">
-    <nuxt-link :to="`/anime/${media.id}`">
+    <nuxt-link
+      :to="`/anime/${media.id}`"
+      :class="`hover:text-[${media.coverImage.color}]`"
+    >
       <img
         :src="media.coverImage.large"
         alt="Image"
