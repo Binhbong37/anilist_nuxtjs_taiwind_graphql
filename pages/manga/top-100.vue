@@ -23,8 +23,10 @@
 </template>
 
 <script>
+import PostListManga from "../../components/MangaMedia/PostListManga.vue";
 import { getTopManga } from "../../graphql/query/getTop100";
 export default {
+  components: { PostListManga },
   data() {
     return {
       page: 1,

@@ -1,5 +1,8 @@
 <template>
-  <div class="pt-[70px]">
+  <div class="p-[70px]">
+    <div>
+      <SearchMedia />
+    </div>
     <!-- Trending -->
     <PostListMedia :title="'Trending Anime'" :media="MediaTrend" />
     <!-- Popular -->
@@ -11,11 +14,12 @@
 </template>
 
 <script>
+import SearchMedia from "../../components/TestPostList/SearchMedia.vue";
 import PostListMedia from "../../components/TestPostList/PostListMedia.vue";
 import { getMedia } from "../../graphql/query/getHomeAnilist";
 export default {
   layout: "testPage",
-  components: { PostListMedia },
+  components: { PostListMedia, SearchMedia },
   data() {
     return {
       loading: 0,

@@ -1,15 +1,15 @@
 <template>
   <div>
     <div class="bg-white">
-      <img :src="Media.bannerImage" alt="banner" class="h-[210px] md:w-full" />
-      <div class="px-12 md:flex">
-        <div class="w-2/6 flex md:block">
+      <img :src="Media.bannerImage" alt="banner" class="md:w-full" />
+      <div class="px-5 md:px-8 lg:px-40 md:flex">
+        <div class="flex items-start w-1/5 lg:w-1/5 md:w-1/4 md:block">
           <img
             :src="Media.coverImage.large"
             alt="imageLarge"
-            class="rounded -mt-20 md:-mt-24 mb-5 md:w-3/4"
+            class="rounded -mt-5 lg:-mt-24 md:-mt-16 mb-5 md:w-full"
           />
-          <div class="flex mt-5">
+          <div class="flex justify-between ml-5 mt-5 w-full md:m-0">
             <div>
               <button
                 class="
@@ -17,9 +17,9 @@
                   bg-[#12acfd]
                   rounded
                   text-white
-                  min-w-[150px]
-                  lg:min-w-[200px] lg:py-2
-                  ml-5
+                  min-w-[200px]
+                  md:min-w-[120px]
+                  lg:min-w-[150px] lg:p-2
                   md:m-0
                 "
               >
@@ -28,25 +28,35 @@
             </div>
             <div
               class="
-                bg-red-700
+                bg-[#ec294b]
                 text-white
                 rounded
-                max-h-8
-                lg:max-h-10 lg:p-4
-                p-2
                 ml-5
+                w-[33px]
+                h-[33px]
+                lg:w-[40px] lg:h-[40px]
+                md:w-[35px] md:h-[33px]
               "
             >
-              <i class="fas fa-heart md:text-xl md:-mt-7"></i>
+              <p class="p-2 lg:p-3 md:p-2">
+                <i class="fas fa-heart"></i>
+              </p>
             </div>
           </div>
         </div>
-        <div class="w-4/6 md:mt-5">
-          <h1 class="md:text-2xl font-bold">{{ Media.title.english }}</h1>
+        <div class="w-4/5 lg:w-4/5 md:w-3/4 md:mt-5 md:ml-8">
+          <h1 class="md:text-2xl text-[#5c728a]">{{ Media.title.english }}</h1>
           <div class="hidden md:block md:anime-detail__header__description">
             <p v-html="getDescription(500)"></p>
             <span
-              class="py-4 -mb-4 font-bold text-xl hover:text-red-500"
+              class="
+                py-4
+                -mb-4
+                font-bold
+                text-center
+                hover:text-red-500
+                cursor-pointer
+              "
               :class="isHide ? 'block' : 'hidden'"
               @click="getFull"
             >
@@ -56,7 +66,7 @@
         </div>
       </div>
       <div class="mt-5">
-        <ul class="flex justify-center md:text-xl">
+        <ul class="flex justify-center">
           <li>
             <nuxt-link
               :to="`/anime/${$route.params.id}`"
@@ -146,4 +156,7 @@ export default {
 </script>
 
 <style scope>
+.body__left {
+  border: 1px solid red;
+}
 </style>

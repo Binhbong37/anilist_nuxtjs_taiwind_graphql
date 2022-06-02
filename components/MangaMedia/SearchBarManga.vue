@@ -19,7 +19,6 @@
           <input
             v-model="searchKey"
             class="
-              form-control
               mt-1
               block
               w-full
@@ -42,10 +41,8 @@
         <div>Genres</div>
         <div>
           <input
-            @focus="resetValue(genreKey)"
             v-model="genreKey"
             class="
-              form-control
               mt-1
               block
               w-full
@@ -88,7 +85,6 @@
           <input
             v-model="seasonKey"
             class="
-              form-control
               mt-1
               block
               w-full
@@ -103,13 +99,12 @@
               focus:outline-none focus:border-green-500
             "
             type="search"
-            name="seasons"
             placeholder="Any"
             list="seasons"
           />
           <datalist id="seasons">
-            <div v-for="s in seasons" :key="s">
-              <option class="text-black bg-white" :value="s"></option>
+            <div v-for="season in seasons" :key="season">
+              <option class="text-black bg-white" :value="season"></option>
             </div>
           </datalist>
         </div>
@@ -119,7 +114,6 @@
         <div>
           <input
             class="
-              form-control
               mt-1
               block
               w-full
@@ -135,7 +129,6 @@
             "
             type="search"
             v-model="formatKey"
-            name="formats"
             placeholder="Any"
             list="formats"
           />
@@ -150,7 +143,7 @@
   </div>
 </template>
 <script>
-import { listGenres, seasons, formatList } from "../static/const-variables";
+import { listGenres, seasons, formatListManga } from "../../static/variables";
 export default {
   name: "SearchBar",
   data() {
@@ -158,7 +151,7 @@ export default {
       display: true,
       genres: listGenres,
       seasons: seasons,
-      formats: formatList,
+      formats: formatListManga,
       searchKey: "",
       genreKey: "",
       yearKey: "",
@@ -196,20 +189,16 @@ export default {
     searchQuery(value) {
       this.$router.push({
         path: "/search/manga",
-        query: value.reduce((prev, curr) => {
-          if (curr.value === "") {
+        query: value.reduce((prev, cur) => {
+          if (cur.value === "") {
             return prev;
           }
-          return Object.assign(prev, { [curr.key]: curr.value });
+          return Object.assign(prev, { [cur.key]: cur.value });
         }, {}),
       });
     },
   },
 
-  methods: {
-    resetValue(key) {
-      console.log("reset:", key);
-    },
-  },
+  methods: {},
 };
 </script>

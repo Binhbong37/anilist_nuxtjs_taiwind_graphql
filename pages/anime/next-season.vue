@@ -23,8 +23,10 @@
 </template>
 
 <script>
+import PostListAnime from "../../components/AnimeMedia/PostListAnime.vue";
 import { getPopularAnime } from "../../graphql/query/getNextSeason";
 export default {
+  components: { PostListAnime },
   data() {
     return {
       page: 1,

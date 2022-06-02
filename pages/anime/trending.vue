@@ -1,5 +1,9 @@
 <template>
   <div class="px-[10px] md:px-5 lg:px-[135px]">
+    <div>
+      <SearchBarAnime />
+      <h1 class="text-red-600 font-bold">Chưa fix xong</h1>
+    </div>
     <div class="py-12">
       <h1 class="text-2xl">Trending Anime</h1>
     </div>
@@ -23,10 +27,11 @@
 </template>
 
 <script>
-import PostListAnime from "../../components/PostListAnime.vue";
+import SearchBarAnime from "../../components/AnimeMedia/SearchBarAnime.vue";
+import PostListAnime from "../../components/AnimeMedia/PostListAnime.vue";
 import { getTrendAnime } from "../../graphql/query/getTrending";
 export default {
-  components: { PostListAnime },
+  components: { PostListAnime, SearchBarAnime },
   data() {
     return {
       mediaTrend: [],

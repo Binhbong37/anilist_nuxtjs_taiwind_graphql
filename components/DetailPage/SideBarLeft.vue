@@ -2,11 +2,15 @@
   <div>
     <div class="bg-white min-h-[50px] rounded">
       <i class="fas fa-star leading-[50px] text-yellow-400 ml-5"></i>
-      <span>#209 Highest Rated All Time</span>
+      <span class="text-[12px] text-[#5189ae]"
+        >#209 Highest Rated All Time</span
+      >
     </div>
     <div class="bg-white min-h-[50px] rounded mt-3">
       <i class="fas fa-heart leading-[50px] text-red-600 ml-5"></i>
-      <span>#284 Most Populator All Time</span>
+      <span class="text-[12px] text-[#5189ae]"
+        >#284 Most Populator All Time</span
+      >
     </div>
     <div class="bg-white rounded mt-3">
       <ul class="text-left props-list">

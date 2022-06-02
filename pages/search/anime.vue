@@ -189,11 +189,12 @@
 </template>
 
 <script>
-import SearchBarAnime from "../../components/SearchBarAnime.vue";
+import PostListAnime from "../../components/AnimeMedia/PostListAnime.vue";
+import SearchBarAnime from "../../components/AnimeMedia/SearchBarAnime.vue";
 import PostListSkeleton from "../../components/Skeleton/PostListSkeleton.vue";
 import { getMedia } from "../../graphql/query/getHomeAnilist";
 export default {
-  components: { PostListSkeleton, SearchBarAnime },
+  components: { PostListSkeleton, SearchBarAnime, PostListAnime },
   data() {
     return {
       loading: 0,

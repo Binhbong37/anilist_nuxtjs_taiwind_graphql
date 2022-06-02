@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import PostListManga from "../../components/PostListManga.vue";
+import PostListManga from "../../components/MangaMedia/PostListManga.vue";
 import { getTrendManga } from "../../graphql/query/getTrending";
 export default {
   components: { PostListManga },

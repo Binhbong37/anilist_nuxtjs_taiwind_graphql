@@ -1,4 +1,4 @@
-var listGenres = [
+const listGenres = [
   "Action",
   "Adventure",
   "Comedy",
@@ -19,7 +19,7 @@ var listGenres = [
   "Thriller",
 ];
 
-const seasons = ["WINTER", "SPRING", "SUMMER", "FALL"];
+const seasons = ["WINTER", "SUMMER", "FALL", "SPRING"];
 const formatList = [
   "TV",
   "MOVIE",
@@ -31,4 +31,6 @@ const formatList = [
   "ONE_SHOT",
 ];
 
-export { listGenres, seasons, formatList };
+const formatListManga = ["MANGA", "NOVEL", "ONE_SHOT"];
+
+export { listGenres, seasons, formatList, formatListManga };

@@ -161,9 +161,10 @@
 <script>
 import PostListSkeleton from "../components/Skeleton/PostListSkeleton.vue";
 import { getMedia } from "../graphql/query/getHomeAnilist";
+import PostListAnime from "../components/AnimeMedia/PostListAnime.vue";
 
 export default {
-  components: { PostListSkeleton },
+  components: { PostListSkeleton, PostListAnime },
   data() {
     return {
       loading: 0,

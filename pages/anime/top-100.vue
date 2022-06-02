@@ -23,8 +23,10 @@
 </template>
 
 <script>
+import PostListAnime from "../../components/AnimeMedia/PostListAnime.vue";
 import { getTopAnime } from "../../graphql/query/getTop100";
 export default {
+  components: { PostListAnime },
   data() {
     return {
       page: 1,

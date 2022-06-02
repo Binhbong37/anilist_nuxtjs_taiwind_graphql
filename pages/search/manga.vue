@@ -188,11 +188,12 @@
 </template>
 
 <script>
-import SearchBarManga from "../../components/SearchBarManga.vue";
+import PostListManga from "../../components/MangaMedia/PostListManga.vue";
+import SearchBarManga from "../../components/MangaMedia/SearchBarManga.vue";
 import PostListSkeleton from "../../components/Skeleton/PostListSkeleton.vue";
 import { getMedia } from "../../graphql/query/getHomeAnilist";
 export default {
-  components: { PostListSkeleton, SearchBarManga },
+  components: { PostListSkeleton, SearchBarManga, PostListManga },
   data() {
     return {
       MediaTrend: [],
