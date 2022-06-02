@@ -135,8 +135,6 @@ export default {
   -webkit-box-orient: vertical;
 }
 .more-info {
-  display: var(--displayMedia);
-
   widows: 100px;
   background-color: white;
   border-radius: 10px;
@@ -144,7 +142,7 @@ export default {
 }
 .card-box::before {
   position: absolute;
-  content: "\A";
+  content: "";
   border-style: solid;
   border-width: 10px 15px 10px 0;
   border-color: transparent white transparent transparent;
@@ -153,16 +151,13 @@ export default {
 }
 .card-box-left::before {
   position: absolute;
-  content: "\A";
+  content: "";
   border-style: solid;
   border-width: 10px 15px 10px 0;
   border-color: transparent white transparent transparent;
   position: absolute;
   transform: rotate(0.5turn);
   right: -3%;
-}
-.media-title:hover {
-  color: var(--background-color);
 }
 
 .modal_detail {

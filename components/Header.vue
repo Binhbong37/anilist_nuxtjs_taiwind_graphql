@@ -31,11 +31,13 @@
           >
           <div class="dropdown" :class="show ? 'block' : 'hidden'">
             <p>
-              <nuxt-link to="/search/anime" class="cursor-pointer"
+              <nuxt-link
+                to="/search/anime"
+                class="cursor-pointer hover:text-red-500"
                 >Anime</nuxt-link
               >
             </p>
-            <p class="mt-5 cursor-pointer">
+            <p class="mt-5 cursor-pointer hover:text-red-500">
               <nuxt-link to="/search/manga">Manga</nuxt-link>
             </p>
           </div>
