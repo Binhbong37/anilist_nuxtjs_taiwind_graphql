@@ -1,52 +1,5 @@
 <template>
   <div class="px-[10px] md:px-5 lg:px-[135px]">
-    <!-- <div v-if="loading > 0">
-      <div
-        class="
-          grid
-          lg:grid-cols-5 lg:gap-[39px]
-          md:grid-cols-5 md:gap-[21px]
-          grid-cols-3
-          gap-[12px]
-        "
-      >
-        <PostListSkeleton />
-        <PostListSkeleton />
-        <PostListSkeleton />
-        <PostListSkeleton />
-        <PostListSkeleton />
-      </div>
-      <div
-        class="
-          grid
-          lg:grid-cols-5 lg:gap-[39px]
-          md:grid-cols-5 md:gap-[21px]
-          grid-cols-3
-          gap-[12px]
-        "
-      >
-        <PostListSkeleton />
-        <PostListSkeleton />
-        <PostListSkeleton />
-        <PostListSkeleton />
-        <PostListSkeleton />
-      </div>
-      <div
-        class="
-          grid
-          lg:grid-cols-5 lg:gap-[39px]
-          md:grid-cols-5 md:gap-[21px]
-          grid-cols-3
-          gap-[12px]
-        "
-      >
-        <PostListSkeleton />
-        <PostListSkeleton />
-        <PostListSkeleton />
-        <PostListSkeleton />
-        <PostListSkeleton />
-      </div>
-    </div> -->
     <div>
       <div class="pt-12">
         <SearchBarAnime />
@@ -79,6 +32,23 @@
             <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
           </nuxt-link>
           <div
+            v-if="loading > 0"
+            class="
+              grid
+              lg:grid-cols-5 lg:gap-[39px]
+              md:grid-cols-5 md:gap-[21px]
+              grid-cols-3
+              gap-[12px]
+            "
+          >
+            <PostListSkeleton />
+            <PostListSkeleton />
+            <PostListSkeleton />
+            <PostListSkeleton />
+            <PostListSkeleton />
+          </div>
+          <div
+            v-else
             class="
               grid
               lg:grid-cols-5 lg:gap-[39px]
@@ -104,6 +74,23 @@
             <h1 class="hover:text-red-500 cursor-pointer">View All</h1>
           </nuxt-link>
           <div
+            v-if="loading > 0"
+            class="
+              grid
+              lg:grid-cols-5 lg:gap-[39px]
+              md:grid-cols-5 md:gap-[21px]
+              grid-cols-3
+              gap-[12px]
+            "
+          >
+            <PostListSkeleton />
+            <PostListSkeleton />
+            <PostListSkeleton />
+            <PostListSkeleton />
+            <PostListSkeleton />
+          </div>
+          <div
+            v-else
             class="
               grid
               lg:grid-cols-5 lg:gap-[39px]
@@ -126,7 +113,26 @@
             <h1 class="hover:text-red-500">TOP-100</h1>
             <h1 class="hover:text-red-500">View All</h1>
           </nuxt-link>
-          <div class="grid md:grid-cols-5 md:gap-[21px] grid-cols-3 gap-[12px]">
+          <div
+            v-if="loading > 0"
+            class="
+              grid
+              lg:grid-cols-5 lg:gap-[39px]
+              md:grid-cols-5 md:gap-[21px]
+              grid-cols-3
+              gap-[12px]
+            "
+          >
+            <PostListSkeleton />
+            <PostListSkeleton />
+            <PostListSkeleton />
+            <PostListSkeleton />
+            <PostListSkeleton />
+          </div>
+          <div
+            v-else
+            class="grid md:grid-cols-5 md:gap-[21px] grid-cols-3 gap-[12px]"
+          >
             <PostListAnime
               class="md:hidden"
               v-for="(media, index) in topMedia"

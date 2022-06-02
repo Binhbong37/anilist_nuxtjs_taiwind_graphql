@@ -56,7 +56,7 @@
               {{ media.averageScore }}%
             </div>
             <div v-else>
-              <i style="color: red" class="far fa-smile"></i>
+              <i style="color: red" class="far fa-frown"></i>
               {{ media.averageScore }}%
             </div>
           </div>

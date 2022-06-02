@@ -1,128 +1,51 @@
 <template>
-  <header id="header">
+  <header
+    id="header"
+    class="bg-[#2b2d42] h-[68px] flex justify-center fixed top-0 left-0 w-full"
+  >
     <nav
       class="
-        absolute
-        top-0
-        left-0
-        right-0
-        border-gray-200
-        px-12
-        py-4
-        md:py-0 md:items-center
+        text-[#bcbedc]
+        items-center
+        flex
+        h-full
+        mx-[50px]
+        max-w-[1050px]
+        w-full
       "
     >
-      <div class="flex justify-between">
-        <div class="md:pl-[70px]">
-          <nuxt-link @click="handleClose" to="/" class="text-center text-white">
-            <img
-              src="https://anilist.co/img/icons/icon.svg"
-              class="logo"
-              alt="Anilist"
-            />
-            Analist
-          </nuxt-link>
-        </div>
-
-        <div class="md:leading-[72px] md:flex md:justify-between">
-          <div
-            class="
-              flex flex-col
-              md:flex-row md:space-x-12 md:mt-0 md:font-bold
-              z-[2]
-              md:z-auto md:static
-              absolute
-              bg-[#2b2d42]
-              w-full
-              left-0
-              pl-5
-              pt-3
-              md:opacity-100
-              opacity-0
-              top-[-350px]
-              transition-all
-              ease-in
-              duration-500
-            "
-            :class="!click ? 'top-[100px] opacity-100' : ''"
+      <a
+        href="/"
+        class="items-center inline-flex h-[55px] w-[65px] justify-center"
+      >
+        <img
+          src="https://anilist.co/img/icons/icon.svg"
+          alt="Logo"
+          class="w-[50px] h-[50px]"
+        />
+      </a>
+      <div class="items-center inline-flex justify-center capitalize w-full">
+        <span class="relative" @mouseover="showModal" @mouseleave="hideModal">
+          <nuxt-link to="/search/anime" class="links px-4 py-[18px]"
+            >Search</nuxt-link
           >
-            <ul class="md:flex">
-              <li
-                @click="handleClose"
-                @mouseover="showModal"
-                @mouseleave="hideModal"
-                class="px-4 relative"
+          <div class="dropdown" :class="show ? 'block' : 'hidden'">
+            <p>
+              <nuxt-link to="/search/anime" class="cursor-pointer"
+                >Anime</nuxt-link
               >
-                <a
-                  href="/search/anime"
-                  class="block border-b md:border-0 md:p-0 text"
-                  >Browse</a
-                >
-                <ul v-if="show" class="modal">
-                  <li><nuxt-link to="/search/anime">Anime</nuxt-link></li>
-                  <li><nuxt-link to="/search/manga">Manga</nuxt-link></li>
-                </ul>
-              </li>
-              <li @click="handleClose" class="px-4">
-                <a
-                  href="/contact"
-                  class="block py-2 border-b md:border-0 md:p-0 text"
-                  >Social</a
-                >
-              </li>
-              <li @click="handleClose" class="px-4">
-                <a href="#" class="block py-2 border-b md:border-0 md:p-0 text"
-                  >Forum</a
-                >
-              </li>
-            </ul>
-            <ul class="hidden md:flex">
-              <li>
-                <a
-                  href="/contact"
-                  class="
-                    space-x-10
-                    mr-5
-                    block
-                    py-2
-                    pr-4
-                    pl-3
-                    border-b
-                    md:border-0 md:p-0
-                    text
-                  "
-                  >Login</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="
-                    sign-up-btn
-                    text-white
-                    bg-[#3577ff]
-                    rounded-md
-                    px-6
-                    py-3
-                    text-center
-                    mr-40
-                  "
-                >
-                  SignUp
-                </a>
-              </li>
-            </ul>
+            </p>
+            <p class="mt-5 cursor-pointer">
+              <nuxt-link to="/search/manga">Manga</nuxt-link>
+            </p>
           </div>
-        </div>
-        <div
-          class="text-white text-2xl leading-[72px] cursor-pointer md:hidden"
+        </span>
+        <nuxt-link to="/" class="links px-4 py-[18px]">Social</nuxt-link>
+        <nuxt-link to="/" class="links px-4 py-[18px]">Forum</nuxt-link>
+        <nuxt-link to="/" class="links ml-[70px] pr-6 px-4 py-[18px]"
+          >Login</nuxt-link
         >
-          <i
-            class="fas fa-bars text-2xl hover:text-slate-50 cursor-pointer"
-            @click="toggleMenu"
-            :class="click ? 'fas fa-bars' : 'fas fa-times'"
-          ></i>
-        </div>
+        <nuxt-link to="/" class="signUp">Sign Up</nuxt-link>
       </div>
     </nav>
   </header>
@@ -227,5 +150,44 @@ nav {
 }
 .modal li:hover {
   color: brown;
+}
+
+.signUp {
+  background: #3577ff;
+  border-radius: 6px;
+  box-shadow: 0 0 0 rgb(8 150 230 / 60%);
+  color: white;
+  font-size: 14px;
+  font-weight: 800;
+  margin-right: -70px;
+  padding: 10px 15px;
+}
+.signUp:hover {
+  transition: box-shadow 0.6s ease, transform 0.2s ease-in-out;
+}
+.links {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.14px;
+  line-height: 16.1px;
+}
+.dropdown {
+  background: #fff;
+  border-radius: 6px;
+  position: absolute;
+  top: 32px;
+  left: -5px;
+  width: 250px;
+  color: #647380;
+  padding: 20px;
+}
+.dropdown::before {
+  content: "";
+  z-index: 2;
+  border: 15px solid;
+  border-color: transparent transparent #fff transparent;
+  position: absolute;
+  top: -20px;
+  left: 10%;
 }
 </style>
