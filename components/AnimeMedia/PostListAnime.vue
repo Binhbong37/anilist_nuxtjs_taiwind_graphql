@@ -48,7 +48,7 @@
             in 6 days
           </h3>
           <div v-if="media.averageScore">
-            <div v-if="media.averageScore > 80">
+            <div v-if="media.averageScore > 75">
               <i style="color: green" class="far fa-smile"></i>
               {{ media.averageScore }}%
             </div>
